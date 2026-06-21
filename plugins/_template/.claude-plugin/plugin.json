@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "{{PLUGIN_ID}}",
+  "displayName": "{{PLUGIN_NAME}}",
+  "description": "{{PLUGIN_DESCRIPTION}}",
+  "version": "0.1.0",
+  "author": {
+    "name": "{{AUTHOR}}"
+  },
+  "homepage": "https://github.com/alew3/skills/tree/main/plugins/{{PLUGIN_ID}}",
+  "repository": "https://github.com/alew3/skills",
+  "license": "MIT",
+  "keywords": []
+}

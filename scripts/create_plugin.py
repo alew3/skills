@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE_DIR = ROOT / "plugins" / "_template"
 PLUGINS_DIR = ROOT / "plugins"
 MARKETPLACE_PATH = ROOT / "marketplace.json"
+NATIVE_MARKETPLACE_PATH = ROOT / ".claude-plugin" / "marketplace.json"
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
@@ -90,6 +91,26 @@ def main() -> int:
             "skill_count": 1
         })
         MARKETPLACE_PATH.write_text(json.dumps(marketplace, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+        # Also register in the Claude Code native marketplace so the plugin is
+        # installable and passes validation (versions must match the manifests).
+        native = json.loads(NATIVE_MARKETPLACE_PATH.read_text(encoding="utf-8"))
+        native.setdefault("plugins", [])
+        if not any(p.get("name") == plugin_id for p in native["plugins"]):
+            native["plugins"].append({
+                "name": plugin_id,
+                "displayName": args.name,
+                "description": args.description,
+                "source": f"./plugins/{plugin_id}",
+                "version": "0.1.0",
+                "author": {"name": args.author} if args.author else {"name": ""},
+                "homepage": f"https://github.com/alew3/skills/tree/main/plugins/{plugin_id}",
+                "repository": "https://github.com/alew3/skills",
+                "license": "MIT",
+                "category": args.category,
+                "keywords": []
+            })
+            NATIVE_MARKETPLACE_PATH.write_text(json.dumps(native, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print(f"Created plugin: plugins/{plugin_id}")
     print("Next steps:")

@@ -1,9 +1,30 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "higgsfield-seedance-video-suite",
+  "displayName": "Higgsfield + Seedance Video Suite",
   "description": "Full AI video + image workflow: briefing, image/character/prop/environment generation, character/prop/environment design sheets, style board, storyboard, Seedance 2 / Higgsfield video prompts, audio, passthrough validation, and final handoff. Drives the Higgsfield MCP or emits paste-ready prompts.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Alessandro Cauduro",
     "email": "alessandro@cauduro.ai"
-  }
+  },
+  "homepage": "https://github.com/alew3/skills/tree/main/plugins/higgsfield-seedance-video-suite",
+  "repository": "https://github.com/alew3/skills",
+  "license": "MIT",
+  "keywords": [
+    "higgsfield",
+    "seedance-2",
+    "video-generation",
+    "image-generation",
+    "character-design",
+    "character-sheet",
+    "prop-sheet",
+    "environment-sheet",
+    "storyboard",
+    "style-board",
+    "audio-generation",
+    "mcp-driven",
+    "dual-mode",
+    "workflow-orchestration"
+  ]
 }
