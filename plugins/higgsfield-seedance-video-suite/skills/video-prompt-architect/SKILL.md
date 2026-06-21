@@ -12,7 +12,7 @@ A video is many shots that may reference MULTIPLE characters and environments. W
 **PRECONDITION — storyboard approved before any clip.** Within a video workflow, do NOT generate a video clip until the storyboard (and this shot's start frame) is approved by the user. If it isn't approved yet, you may still write the prompt (PROMPT MODE) so the user can review it, but do NOT render — route back for storyboard approval first. Called standalone on already-approved assets, proceed normally.
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -45,7 +45,7 @@ MCP MODE → resolve model+params (`models_explore` recommend→get to confirm e
 
 MOTION TRANSFER → when the user has an approved still AND a real driving motion clip and wants exact, identity-preserving motion, use `motion_control` (Kling 3 recast/puppeteer: `image_id` + `motion_video_id`) instead of i2v. Use `generate_video` i2v when motion is prompt-described or you need t2v / multi-shot / a specific duration / audio.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 ==================================================
 PROMPT-WRITING ESSENTIALS (see conventions doc)

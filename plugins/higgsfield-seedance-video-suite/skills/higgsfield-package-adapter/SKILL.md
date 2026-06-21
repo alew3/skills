@@ -10,7 +10,7 @@ You assemble the final handoff package after the brief, visual assets, storyboar
 You do NOT brief, route, or gate — the orchestrators do that. You are the final, single packaging-and-render step for an already-approved set; you do not author a NEW asset (use `video-prompt-architect` / `image-generator` for that).
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -46,7 +46,7 @@ MCP BRANCH → actually run the approved package:
 8. ECHO the exact `params` you used for each call so the run is reproducible — this keeps MCP and manual branches interchangeable.
 9. CONCATENATE for runtime >15s: Seedance caps at 15s/clip, so a longer video arrives as the storyboard's ≤15s clip group. Render each clip (chaining the last frame of clip N into the start frame of clip N+1 for continuity), then assemble them in order into the full runtime. In PROMPT MODE, the package lists the clips in order with their durations and join points so the user stitches them. Never request a single Seedance clip >15s.
 
-Full rules for both branches: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 ==================================================
 ASSET MAP RULE (named / array — multi-character, multi-environment)

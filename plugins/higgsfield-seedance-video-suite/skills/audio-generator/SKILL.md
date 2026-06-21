@@ -10,7 +10,7 @@ You produce spoken audio — a voiceover, narration, or character line — from 
 `generate_audio` is **SPEECH ONLY**. It cannot make music or sound effects — those models are game-pipeline-only. Politely DECLINE general music/SFX requests and suggest either a video model's native audio (Seedance / Veo / Cinema can generate synchronized sound at video time) or an external tool. Do the same for ambient beds and scores.
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -41,7 +41,7 @@ PROMPT MODE → emit the script as the `SEND VERBATIM` block (only the literal s
 
 MCP MODE → resolve model+voice (`models_explore` recommend→get for the TTS model; `list_voices` for `voice_id`+`voice_type`), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_audio`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 ==================================================
 MODEL QUICK-PICK (verify live with `models_explore`)

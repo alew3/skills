@@ -10,7 +10,7 @@ You produce one image, or a small set of related images, from a user's idea. You
 For specialized jobs, defer to the right skill: `character-designer` (a character's canonical look), `character-sheet-builder` (turnaround/expression sheets), `environment-sheet-builder` (location boards), `style-board-builder` (style/mood boards), `storyboard-builder` (paneled storyboards). Use this skill for everything else. This skill creates ONE asset; to assemble/render an already-approved set, hand off to `higgsfield-package-adapter`.
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -42,7 +42,18 @@ For PHOTOREAL work, apply the anti-"AI look" playbook (conventions §2): frame i
 
 MCP MODE → resolve model+params (`models_explore` recommend→get), convert any reference to a `media_id` (never a URL), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
+
+==================================================
+PROMPT-WRITING ESSENTIALS (inlined — self-sufficient)
+==================================================
+
+- STRUCTURE (order the model rewards): **intended use → scene/setting → subject → key details → lighting → lens/optics → composition → style → explicit constraints.** Natural language wins — clear sentences over keyword piles; 1–3 sentences is often enough.
+- LIGHTING is the single biggest quality lever after subject — always state **direction + quality** ("soft daylight from camera-left, gentle catchlights"), never just "good lighting".
+- DO NOT default to "cinematic" — name the concrete look (palette, grade, lens, era, medium) you actually mean.
+- NEGATIVES: GPT Image 2 has **no separate negative field** — fold exclusions into the prompt as explicit "no X" phrases ("no text, no watermark, no extra people").
+- CONSISTENCY across a small set: reuse a verbatim identity descriptor word-for-word and pass a master reference image — or defer to `character-designer`.
+- PHOTOREAL anti-"AI look" (GPT Image 2 over-polishes): frame as a real photo captured in the moment; add imperfection/texture (skin pores, film grain, sensor noise, asymmetry); a single motivated key light; real lens/film-stock language (35mm, Portra 400); off-center composition; and DROP cargo-cult tokens (`8K/ultra-detailed/masterpiece`).
 
 ==================================================
 FIDELITY RULE

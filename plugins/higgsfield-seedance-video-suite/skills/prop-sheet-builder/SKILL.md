@@ -10,7 +10,7 @@ You produce a reference sheet for ONE prop or object — a hero render plus mult
 **One prop per invocation.** A project may have MANY props — invoke this skill once per prop and name each distinctly (e.g. `prop:trophy`, `prop:badge`). For a character's look use `character-designer`; for locations use `environment-sheet-builder`; for the project look use `style-board-builder`.
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -54,7 +54,7 @@ PROMPT MODE → emit the assembled DESIGN-SHEET prompt (default). Fidelity fallb
 
 MCP MODE → resolve model+params (`models_explore` recommend→get); generate the hero render first and approve it; convert it to a `media_id` (never a URL) and reference it on the sheet/derived views (or register it as an **Element** via `show_reference_elements` for reuse in shots); show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits); `generate_image`; poll `job_status`; then route each result to `asset-approval-gate`. Echo the exact `params`.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 ==================================================
 FIDELITY RULE

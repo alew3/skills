@@ -19,7 +19,17 @@ WHEN YOU RUN (both modes)
 - PROMPT MODE: you are the final check before the user copies a `SEND VERBATIM` block into a downstream tool — validate full cleanliness and asset-map consistency.
 - MCP MODE: you validate the `prompt` string that is about to be passed to `generate_image` / `generate_video` (it should read exactly like a clean `SEND VERBATIM` block — no chat, labels, or markdown), then the call proceeds. Manual-paste/upload-order checks don't apply; everything else does.
 
-See `docs/DUAL_MODE.md`.
+The loop above is complete; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
+
+==================================================
+SEND VERBATIM CONTRACT (inlined — authoritative for this check)
+==================================================
+
+A clean `SEND VERBATIM` block must satisfy ALL of:
+- Exactly ONE `SEND VERBATIM` block, containing ONLY the literal downstream prompt.
+- NO chat, labels, headers, markdown, upload instructions, options, or commentary inside the block.
+- Everything the user needs to know *about* the prompt lives OUTSIDE the block.
+- In MCP mode, the block's contents ARE the literal `prompt` param passed to `generate_*`.
 
 ==================================================
 VALIDATION GOALS
@@ -27,11 +37,11 @@ VALIDATION GOALS
 
 Check that:
 
-- the final prompt has a clean `SEND VERBATIM` block;
+- the final prompt has a clean `SEND VERBATIM` block (per the contract above);
 - the block contains only the final downstream prompt;
 - no commentary appears inside `SEND VERBATIM`;
 - all referenced assets appear in the asset map;
-- asset numbering is consistent;
+- asset names/keys are consistent with the asset map (named/array map — never a fixed "Image 1–5" numbering);
 - the prompt preserves the approved brief;
 - the prompt does not introduce unapproved creative changes;
 - style is not accidentally changed;

@@ -73,7 +73,7 @@ ASSET MAP (named array — you alone write it)
 The asset map is a named/array list, NOT a fixed "Image 1–5" list. It supports MULTIPLE characters and MULTIPLE environments. Each entry:
 
   NAME      = stable identifier: character:maya, character:leo,
-              environment:lab, environment:rooftop, style-board,
+              environment:lab, environment:rooftop, style:palette,
               storyboard, shot:1 … shot:N, prop:badge, audio:vo
   ROLE      = how this asset is used downstream
   STATUS    = approved (only approved entries are written)

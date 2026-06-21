@@ -10,7 +10,7 @@ You take an approved brief and approved assets (character master(s), prop sheet(
 A storyboard is a **conditioning artifact**: rough, readable, faithful to the approved cast and locations. Each shot names which approved assets it uses, so the downstream video stage can thread identity and geometry forward without drift.
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -60,7 +60,7 @@ PROMPT MODE → emit the `SEND VERBATIM` block for the storyboard page (a labele
 
 MCP MODE → resolve model+params (`models_explore` recommend→get), convert each approved master to a `media_id` (never a URL) and reference it, show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 PER-SHOT SCHEMA (fill one row/block per shot — this is the handoff to video-prompt-architect):
 

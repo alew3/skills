@@ -10,7 +10,7 @@ You produce a single cohesive style board (one sheet / grid of labeled tiles) th
 This is the artifact that locks the LOOK. Capture whatever style the user actually wants — **do NOT default to "cinematic."**
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -51,7 +51,7 @@ PROMPT MODE → emit the `SEND VERBATIM` block (the single board prompt only) us
 
 MCP MODE → resolve model+params (`models_explore` recommend→get; favor a model that renders crisp in-tile text labels), convert any reference to a `media_id` (never a URL), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, then route the board to `asset-approval-gate` (its palette/lighting/grade/style become locked continuity inputs once approved). Echo the exact `params` you used.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 ==================================================
 FIDELITY RULE

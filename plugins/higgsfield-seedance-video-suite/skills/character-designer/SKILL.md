@@ -10,7 +10,7 @@ You define a single character once and make that definition reusable everywhere.
 ONE character per invocation. A scene may have many characters — design each separately, give each its own distinctly-named asset (e.g. `character:maya`, `character:theo`) with its own bible and master. **Two or more characters appearing in the same shot must use Elements, not Soul** (Soul is one identity per generation). Downstream of you: `character-sheet-builder` derives turnaround/expression sheets from your approved master.
 
 ==================================================
-SHARED CONTRACT (read these)
+SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
@@ -39,13 +39,21 @@ STEP 2 — EXECUTE (dual mode)
 
 Lock the bible in **priority order: bone structure / face shape first** (it drifts most), then eyes, hair, skin tone (state explicitly or lighting bleeds it), exact age ("34, smooth skin"), build, distinctive marks, base wardrobe, color palette, and a do-not-drift negative list. Compress those locked fields into the ≤50-word Identity Block, in fixed order, placed **before** the scene/style text. No synonym drift ("emerald" must stay "emerald").
 
+**Identity Block template (inlined — fill verbatim, ≤50 words, before any scene text):**
+```
+[NAME], a [age]-year-old [ethnicity] [gender] with a [face shape] face, [cheekbone/jaw detail],
+[eye color] [eye shape] eyes, [hair length/texture/color] hair parted [side], [skin tone] skin,
+[distinctive mark], [build]. Wearing [base outfit]. // SCENE: [setting, pose, expression, camera] only.
+```
+Reuse this exact string word-for-word in every later generation (sheets, shots); only the part after `// SCENE:` changes per use.
+
 Frame the **master** deliberately: front-facing, neutral expression, flat even light, plain neutral background, subject filling frame — this is a conditioning artifact, not a finished scene. The master is your strongest reuse lever; everything later is **master → derive**.
 
 PROMPT MODE → emit the master-generation prompt in the `SEND VERBATIM` block (the Identity Block + neutral master framing only); put model/aspect/reuse notes outside it.
 
 MCP MODE → resolve model+params (`models_explore` recommend→get), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, route the master to `asset-approval-gate`. Then wire up reuse: **Soul** → `show_characters(action:'train')` with the approved refs to get a `soul_id`; **Element** → `show_reference_elements(action:'create')` with the master to get an `element_id`. Echo the exact `params` you used.
 
-Full rules for both modes: `docs/DUAL_MODE.md`.
+The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
 
 ==================================================
 FIDELITY RULE
