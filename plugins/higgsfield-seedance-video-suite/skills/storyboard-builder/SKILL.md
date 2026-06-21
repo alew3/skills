@@ -58,7 +58,7 @@ Then, per execution mode:
 
 PROMPT MODE → emit the `SEND VERBATIM` block for the storyboard page (a labeled-panel grid, captions short), OR per-panel prompts if rendering each panel separately; put model/aspect/reference notes outside it.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get), convert each approved master to a `media_id` (never a URL) and reference it, preflight with `get_cost:true` and confirm credits, `generate_image`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
+MCP MODE → resolve model+params (`models_explore` recommend→get), convert each approved master to a `media_id` (never a URL) and reference it, show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

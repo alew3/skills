@@ -56,7 +56,7 @@ Build in sequence (master → bible → derived views), never one mega-prompt:
 
 PROMPT MODE → emit per-angle `SEND VERBATIM` blocks (master first, then each view), each carrying the verbatim location bible before its scene text. Put model/aspect/reference notes outside the blocks.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get; default `gpt_image_2`), convert the master to a `media_id`/`job_id` for derived views (never a URL), preflight with `get_cost:true` and confirm credits, `generate_image` per view, poll `job_status`, then route each result to `asset-approval-gate`. Echo the exact `params`.
+MCP MODE → resolve model+params (`models_explore` recommend→get; default `gpt_image_2`), convert the master to a `media_id`/`job_id` for derived views (never a URL), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image` per view, poll `job_status`, then route each result to `asset-approval-gate`. Echo the exact `params`.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

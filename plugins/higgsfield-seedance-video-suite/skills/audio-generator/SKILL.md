@@ -39,7 +39,7 @@ STEP 2 — EXECUTE (dual mode)
 
 PROMPT MODE → emit the script as the `SEND VERBATIM` block (only the literal spoken text) and put model/voice/delivery notes in VOICE SPEC outside it. Optionally include ready-to-run MCP args.
 
-MCP MODE → resolve model+voice (`models_explore` recommend→get for the TTS model; `list_voices` for `voice_id`+`voice_type`), preflight with `get_cost:true` and confirm credits, `generate_audio`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
+MCP MODE → resolve model+voice (`models_explore` recommend→get for the TTS model; `list_voices` for `voice_id`+`voice_type`), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_audio`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

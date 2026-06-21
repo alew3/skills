@@ -39,7 +39,7 @@ MCP BRANCH → actually run the approved package:
 1. RESOLVE the target model & exact params per `docs/HIGGSFIELD_MCP_REFERENCE.md` (`models_explore` get → confirm aspect_ratio / duration steps / quality|resolution / per-model media `roles`). Don't invent enums.
 2. CONVERT every approved reference asset to a `media_id` — `media_upload_widget` (local) or `media_import_url` (web URL); reuse a prior generation's `job_id` directly. Never pass an `https://` URL in `medias[].value`.
 3. MAP each asset to its role for the target model: e.g. `start_image` / `end_image` / `image` (identity/style) / `audio`; Elements go inside the `prompt` as `<<<element_id>>>`, never in `medias[]`.
-4. PREFLIGHT with `get_cost:true`, show the credit cost, and confirm before spending (especially 4K / quality / count>1 / video).
+4. PROMPT-PREVIEW APPROVAL GATE (mandatory — never skip): show the user the **exact prompt(s)** to be sent + the resolved params + the `get_cost:true` credit cost, and **get explicit approval before spending** — never run a `generate_*` on an unseen/unapproved prompt (4K / quality / count>1 / video especially). Revise and re-show if they want changes.
 5. GENERATE the mapped call(s): `generate_video` for the final shot(s), `generate_image` for stills, `generate_audio` for VO (speech only — pick voice via `list_voices`).
 6. POLL `job_status` until terminal (respect `poll_after_seconds`); if a call returns a `recovery_tool`, call it immediately.
 7. ROUTE the rendered media through `asset-approval-gate` (approve / revise / reject) before it's used downstream.

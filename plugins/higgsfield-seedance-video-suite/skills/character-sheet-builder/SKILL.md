@@ -54,7 +54,7 @@ Hold IDENTICAL across every panel: plain light-grey seamless background, flat ev
 
 PROMPT MODE → emit one `SEND VERBATIM` block **per view/emotion/pose** (each a complete, self-contained prompt carrying the identity block + the single varied instruction). Put model/aspect/reference notes outside the blocks.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get); convert the master to a `media_id` (never a URL) and pass it on every derivation via `medias` (or use `soul_id`/Element per §4); preflight with `get_cost:true` and confirm credits; then `generate_image` **per view in sequence** (master first if bootstrapping, then each derived view referencing it), poll `job_status`, and route each result to `asset-approval-gate`. Echo the exact `params` per call. Full rules for both modes: `docs/DUAL_MODE.md`.
+MCP MODE → resolve model+params (`models_explore` recommend→get); convert the master to a `media_id` (never a URL) and pass it on every derivation via `medias` (or use `soul_id`/Element per §4); show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits); then `generate_image` **per view in sequence** (master first if bootstrapping, then each derived view referencing it), poll `job_status`, and route each result to `asset-approval-gate`. Echo the exact `params` per call. Full rules for both modes: `docs/DUAL_MODE.md`.
 
 ==================================================
 FIDELITY RULE

@@ -58,7 +58,7 @@ Where it helps, also give the **ready-to-run MCP arguments** for the same prompt
 
 1. **Resolve the model & params** per `docs/HIGGSFIELD_MCP_REFERENCE.md`. **Use the model the user specified if they named one — an explicit choice overrides the default;** otherwise use the project defaults (images → `gpt_image_2`, video → `seedance_2_0`). Then `models_explore(action:"get", …)` to confirm exact enums (aspect_ratio, duration steps, quality/resolution, media roles). Don't invent param values.
 2. **Reference media:** convert any URL/local file to a `media_id` first (`media_import_url` / `media_upload_widget`) — never pass a URL in `medias[].value`.
-3. **Preflight cost:** call with `get_cost:true`, show the credit cost, and **confirm with the user before spending** (especially 4K / high quality / count>1 / video).
+3. **PROMPT-PREVIEW APPROVAL GATE — mandatory, never skip.** Before ANY `generate_*` call, show the user: the **exact final prompt text** (the literal `prompt`/`text` param, in a clean block), the **resolved params** (model, aspect_ratio, duration, quality/resolution, references), and the **credit cost** from `get_cost:true`. Then **wait for explicit approval — do not spend credits until the user approves the prompt.** If they want changes, revise and re-show. This applies to EVERY image / video / audio generation in every skill: the user always validates the prompt before any credits are spent.
 4. **Generate, then poll quietly:** poll with **`job_status(jobId, sync:true)`** until terminal (respect `poll_after_seconds`) — text only; do not surface intermediate polls. **Do NOT call `job_display` until the job is finished** — `job_display` renders the result canvas, so calling it mid-run shows a blank image every time. When the job is completed, call **`job_display(id)` exactly once** to show the final asset.
 5. **Route the result to `asset-approval-gate`** (approve / revise / reject) before it's used downstream.
 6. **Echo the exact `params` you used** so the user can reproduce or tweak the call themselves — this keeps MCP mode and prompt mode interchangeable.
@@ -68,6 +68,7 @@ Where it helps, also give the **ready-to-run MCP arguments** for the same prompt
 
 ## Invariants (both modes)
 
+- **Prompt-preview before spend (MCP mode):** the exact prompt + resolved params + `get_cost` credit cost are shown and **explicitly approved before any `generate_*` call** — credits are never spent on an unseen/unapproved prompt. This is in addition to the post-generation asset approval below.
 - **Approval gates** fire after any asset that affects downstream generation (character, any sheet, style board, storyboard, final video prompt) — in *both* modes (in prompt mode you approve the prompt; in MCP mode you approve the rendered media).
 - **Asset-map authority:** once an asset is approved its number/name is locked; only `asset-approval-gate` writes asset-map entries; orchestrators read them.
 - **Continuity:** thread approved references (character master, environment master, palette, aspect ratio) into every later stage — see the conventions docs.

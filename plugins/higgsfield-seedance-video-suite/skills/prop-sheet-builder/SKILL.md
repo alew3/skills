@@ -52,7 +52,7 @@ Lock the object's identity: shape/silhouette, materials, key markings, proportio
 
 PROMPT MODE → emit the assembled DESIGN-SHEET prompt (default). Fidelity fallback: one `SEND VERBATIM` block per view/variant, each a complete self-contained prompt carrying the object description before the scene text. Put model/aspect/reference notes outside the blocks.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get); generate the hero render first and approve it; convert it to a `media_id` (never a URL) and reference it on the sheet/derived views (or register it as an **Element** via `show_reference_elements` for reuse in shots); preflight with `get_cost:true` and confirm credits; `generate_image`; poll `job_status`; then route each result to `asset-approval-gate`. Echo the exact `params`.
+MCP MODE → resolve model+params (`models_explore` recommend→get); generate the hero render first and approve it; convert it to a `media_id` (never a URL) and reference it on the sheet/derived views (or register it as an **Element** via `show_reference_elements` for reuse in shots); show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits); `generate_image`; poll `job_status`; then route each result to `asset-approval-gate`. Echo the exact `params`.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

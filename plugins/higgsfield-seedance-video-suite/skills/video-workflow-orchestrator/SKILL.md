@@ -51,7 +51,7 @@ EXECUTION MODE BEHAVIOR
 
 PROMPT MODE — every stage outputs `SEND VERBATIM` prompts (+ optional ready-to-run MCP args). No MCP calls. The deliverable is the handoff package of prompts + asset map.
 
-MCP MODE — stages resolve models/params per the MCP reference, preflight `get_cost` and CONFIRM credits before spending, generate, then **poll quietly with `job_status` (text only) and show the finished asset once via `job_display` when it's done** (never display while rendering), and route media through `asset-approval-gate`. For video, generate in PASSES: P1 a single look-test shot → get approval → P2 the core shots → P3 pickups. Never batch-render all shots before a P1 look-test. Echo the exact params used.
+MCP MODE — stages resolve models/params per the MCP reference, then **show the user the exact prompt + params + `get_cost` cost and get explicit approval before any `generate_*` (validate before spending credits — never generate an unseen prompt)**, generate, then **poll quietly with `job_status` (text only) and show the finished asset once via `job_display` when it's done** (never display while rendering), and route media through `asset-approval-gate`. For video, generate in PASSES: P1 a single look-test shot → get approval → P2 the core shots → P3 pickups. Never batch-render all shots before a P1 look-test. Echo the exact params used.
 
 See `docs/DUAL_MODE.md` for the full contract.
 

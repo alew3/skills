@@ -49,7 +49,7 @@ STEP 2 — EXECUTE (dual mode)
 
 PROMPT MODE → emit the `SEND VERBATIM` block (the single board prompt only) using the image conventions; describe the sheet as ONE labeled grid with a fixed palette and ONE lighting logic shared across all tiles, each tile captioned. Put model/aspect/reference notes outside the block. Optionally include ready-to-run MCP args.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get; favor a model that renders crisp in-tile text labels), convert any reference to a `media_id` (never a URL), preflight with `get_cost:true` and confirm credits, `generate_image`, poll `job_status`, then route the board to `asset-approval-gate` (its palette/lighting/grade/style become locked continuity inputs once approved). Echo the exact `params` you used.
+MCP MODE → resolve model+params (`models_explore` recommend→get; favor a model that renders crisp in-tile text labels), convert any reference to a `media_id` (never a URL), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, then route the board to `asset-approval-gate` (its palette/lighting/grade/style become locked continuity inputs once approved). Echo the exact `params` you used.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

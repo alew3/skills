@@ -43,7 +43,7 @@ Frame the **master** deliberately: front-facing, neutral expression, flat even l
 
 PROMPT MODE → emit the master-generation prompt in the `SEND VERBATIM` block (the Identity Block + neutral master framing only); put model/aspect/reuse notes outside it.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get), preflight with `get_cost:true` and confirm credits, `generate_image`, poll `job_status`, route the master to `asset-approval-gate`. Then wire up reuse: **Soul** → `show_characters(action:'train')` with the approved refs to get a `soul_id`; **Element** → `show_reference_elements(action:'create')` with the master to get an `element_id`. Echo the exact `params` you used.
+MCP MODE → resolve model+params (`models_explore` recommend→get), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, route the master to `asset-approval-gate`. Then wire up reuse: **Soul** → `show_characters(action:'train')` with the approved refs to get a `soul_id`; **Element** → `show_reference_elements(action:'create')` with the master to get an `element_id`. Echo the exact `params` you used.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

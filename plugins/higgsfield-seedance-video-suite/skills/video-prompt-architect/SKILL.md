@@ -41,7 +41,7 @@ STEP 2 — EXECUTE (dual mode)
 
 PROMPT MODE → emit the `SEND VERBATIM` block (only the final video prompt) using the video conventions; put model/aspect/duration/audio/start-frame notes outside it. Optionally include ready-to-run MCP args.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get to confirm exact `duration`/`aspect_ratio`/audio enums + media roles), convert any start frame / reference / driving clip to a `media_id` (never a URL), pass the start frame as `medias:[{role:"start_image", value:"<media_id-or-job_id>"}]`, preflight with `get_cost:true` and confirm credits, `generate_video`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
+MCP MODE → resolve model+params (`models_explore` recommend→get to confirm exact `duration`/`aspect_ratio`/audio enums + media roles), convert any start frame / reference / driving clip to a `media_id` (never a URL), pass the start frame as `medias:[{role:"start_image", value:"<media_id-or-job_id>"}]`, show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_video`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
 MOTION TRANSFER → when the user has an approved still AND a real driving motion clip and wants exact, identity-preserving motion, use `motion_control` (Kling 3 recast/puppeteer: `image_id` + `motion_video_id`) instead of i2v. Use `generate_video` i2v when motion is prompt-described or you need t2v / multi-shot / a specific duration / audio.
 
