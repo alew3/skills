@@ -17,10 +17,14 @@ The standard MCP-mode sequence shared by all generation skills. See `docs/HIGGSF
 4. GENERATE
    generate_image / generate_video / generate_audio / motion_control({ params: { … } })
 
-5. POLL
-   job_status(jobId)   // respect poll_after_seconds; or job_status(jobId, sync:true)
+5. POLL QUIETLY (text only)
+   job_status(jobId, sync:true)   // blocks ~25s; repeat until terminal; respect poll_after_seconds
+   // NEVER call job_display while running — it renders a blank canvas on every poll
 
-6. APPROVE
+6. DISPLAY ONCE (only when finished)
+   job_display(id)   // show the final asset exactly once, after status == completed
+
+7. APPROVE
    route the returned media through asset-approval-gate; if a recovery_tool is returned, call it immediately.
 
 EXAMPLES

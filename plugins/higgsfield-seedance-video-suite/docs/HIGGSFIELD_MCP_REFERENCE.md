@@ -123,7 +123,7 @@ Post-processing: `upscale_video` (bytedance: needs `width`+`height`, `preset:aig
 ## 6. Generation lifecycle & gotchas
 
 1. **Preflight cost** with `get_cost:true` (supported on `generate_image`, `generate_video`, `generate_audio`, `reframe` — NOT `motion_control`/`upscale_video`); confirm with the user before spending credits.
-2. **Async jobs:** poll `job_status(jobId)` — non-terminal responses carry `poll_after_seconds`; `job_status(...,sync:true)` blocks ~25s for fewer round-trips. Video ≈ 60–180s, images ≈ 10–20s.
+2. **Async jobs — poll quietly with `job_status`, render once with `job_display`:** poll with **`job_status(jobId, sync:true)`** (blocks ~25s server-side → fewest round-trips) until terminal; respect `poll_after_seconds`, and don't surface intermediate status. **Never call `job_display` while the job is running** — `job_display` renders the result widget, so calling it mid-run shows a blank canvas every poll. Call **`job_display(id)` exactly once, after the job is completed**, to show the final asset. Video ≈ 60–180s, images ≈ 10–20s.
 3. **Recovery:** if a `generate_*` call returns a `recovery_tool`, call it immediately (don't explain/ask first). Lost results → `reveal_generation` / `show_generations`.
 4. **URLs ≠ media_ids** in `medias[].value` (except `reframe` images).
 5. **Model gates features** — audio/`end_image`/motion params exist only if the model declares them; `models_explore get` first.
