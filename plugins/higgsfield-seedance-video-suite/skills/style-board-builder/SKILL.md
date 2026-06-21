@@ -16,6 +16,15 @@ SHARED CONTRACT (read these)
 - Clarify + execution mode: `docs/DUAL_MODE.md`
 - How to write the prompt: `docs/IMAGE_PROMPT_CONVENTIONS.md`
 - Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
+- Per-model strategy + which model: `docs/MODEL_PROMPTING.md`
+
+==================================================
+DESIGN-SHEET DELIVERABLE (the look to produce)
+==================================================
+
+The deliverable is a single polished landscape STYLE / MOOD BOARD design sheet — see `templates/style-board-template.md`. Sections: HEADER (project + art style); a labeled COLOR PALETTE strip with hex; MATERIAL / TEXTURE tiles; LIGHTING / ATMOSPHERE studies; a few representative MINI-VIGNETTES in the chosen style; and short LOOK NOTES — clean editorial infographic layout, every tile labeled, ONE palette and ONE lighting logic across all tiles.
+
+This board is TEXT-HEAVY (project title, tile labels, hex codes, notes) → prefer **GPT Image 2** or **Nano Banana Pro** (`docs/MODEL_PROMPTING.md`); aspect 16:9.
 
 ==================================================
 STEP 1 — CLARIFY (never guess the look)
