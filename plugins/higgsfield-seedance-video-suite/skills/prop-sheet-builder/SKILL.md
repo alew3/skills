@@ -24,7 +24,7 @@ DESIGN-SHEET DELIVERABLE (the look to produce)
 
 The headline deliverable is a single polished landscape PROP / OBJECT DESIGN SHEET — see `templates/prop-sheet-template.md`. Sections: HEADER (prop name + category); HERO RENDER of the object; MULTI-ANGLE VIEWS (front / side / back / 3-4 / top, on a clean background); DETAIL CALLOUTS (close-ups of materials, mechanisms, textures, wear); SCALE REFERENCE (next to a hand or a measured marker); VARIANTS / STATES (e.g. clean vs worn, open vs closed, color variants); MATERIAL BREAKDOWN (labeled samples); COLOR PALETTE with hex; and short USAGE NOTES — clean editorial infographic layout, every panel labeled, identical object identity across all views.
 
-This sheet is TEXT-HEAVY (title, labels, hex, callouts) → prefer **GPT Image 2** or **Nano Banana Pro** (`docs/MODEL_PROMPTING.md`); aspect 16:9. Default: generate the whole sheet from one assembled prompt that references the approved hero render. Fidelity fallback: if a view drifts, derive it separately (master→derive) and recomposite.
+This sheet is TEXT-HEAVY (title, labels, hex, callouts); use the project-standard **GPT Image 2** (`docs/MODEL_PROMPTING.md`); aspect 16:9. Default: generate the whole sheet from one assembled prompt that references the approved hero render. Fidelity fallback: if a view drifts, derive it separately (master→derive) and recomposite.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)

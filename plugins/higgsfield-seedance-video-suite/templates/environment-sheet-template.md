@@ -2,7 +2,7 @@
 
 Produces a single, polished landscape **environment design sheet**: header/meta, hero environment with numbered callouts, environment views A–F, prop breakdown, material/detail callouts, color palette with hex, world notes, and design-notes + top-down map — one cohesive image.
 
-**TEXT-HEAVY** (title, meta row, lettered callouts, captions, hex) → prefer **GPT Image 2** or **Nano Banana Pro**; aspect **16:9**. See `docs/MODEL_PROMPTING.md`. For consistency, lock the empty-location master first (master→derive) and keep geometry + light direction identical across every view.
+**TEXT-HEAVY** (title, meta row, lettered callouts, captions, hex) → use **GPT Image 2** (project standard); aspect **16:9**. See `docs/MODEL_PROMPTING.md`. For consistency, lock the empty-location master first (master→derive) and keep geometry + light direction identical across every view.
 
 LOCATION: environment:<name> · LOCATION BIBLE (verbatim): [anchors + lighting logic] · MASTER (for geometry lock): [media_id if available]
 

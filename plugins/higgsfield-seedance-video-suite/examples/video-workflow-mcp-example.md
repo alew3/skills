@@ -8,24 +8,24 @@ User: *"Make a 6s 9:16 clip — detective Maya lowers a photo in a rainy neon al
 
 **2. Character (`character-designer` → MCP)**
 ```json
-// models_explore(action:"recommend", query:"realistic detective portrait", input:"text", type:"image") → soul_2
+// models_explore(action:"recommend", query:"realistic detective portrait", input:"text", type:"image") → gpt_image_2 (project default)
 // get_cost first, confirm credits, then:
-{ "params": { "model": "soul_2", "prompt": "Detective Maya, 34, sharp jaw, shoulder-length dark hair, tired green eyes, charcoal trench coat. Front-facing, neutral expression, flat even light, plain grey background.", "aspect_ratio": "2:3", "quality": "2k", "count": 1 } }
+{ "params": { "model": "gpt_image_2", "prompt": "Detective Maya, 34, sharp jaw, shoulder-length dark hair, tired green eyes, charcoal trench coat. Front-facing, neutral expression, flat even light, plain grey background.", "aspect_ratio": "2:3", "resolution": "2k", "quality": "high", "count": 1 } }
 ```
-→ poll `job_status` → master approved via `asset-approval-gate` → trained to a Soul: `show_characters(action:'train', name:"maya", images:[<media_ids>])` → `soul_id`.
+→ poll `job_status` quietly → `job_display` once → master approved via `asset-approval-gate` → reused on later gens via reference image (`medias`) or an Element (train a Soul with `soul_2` only if a trained double is wanted).
 
-**3. Environment (`environment-sheet-builder` → MCP)** — master establishing of the alley (Nano Banana Pro, 16:9), approved; location bible records "neon signs left, wet pavement, fire escape right; cool key from left".
+**3. Environment (`environment-sheet-builder` → MCP)** — master establishing of the alley (GPT Image 2, 16:9), approved; location bible records "neon signs left, wet pavement, fire escape right; cool key from left".
 
-**4. Storyboard keyframe (`storyboard-builder` → MCP)** — one still for the shot, generated from maya's Soul + alley master + style board, 9:16. Approved → this is the i2v start frame.
+**4. Storyboard (`storyboard-builder` → MCP) — REQUIRED before any video** — a scene-by-scene visual storyboard sheet (numbered, titled panels + captions + bottom info bar) plus a keyframe per shot, generated from maya's master + alley master + style board, 9:16. Approved ★ → each keyframe is its shot's i2v start frame.
 
 **5. Video shot (`video-prompt-architect` → MCP)**
 ```json
 // media_import_url / reuse keyframe job_id → media_id, then:
-{ "params": { "model": "kling3_0_turbo",
+{ "params": { "model": "seedance_2_0",
   "prompt": "Medium close-up of the detective, she lowers a photo and her eyes narrow, slow camera push-in, rain-soaked neon alley at night with wet reflective pavement, soft streetlight from frame left, moody neo-noir grade, shallow depth of field, no extra characters, avoid identity drift",
   "aspect_ratio": "9:16", "duration": 6,
   "medias": [{ "role": "start_image", "value": "<keyframe media_id>" }] } }
 ```
-→ `get_cost` confirmed → generate → `job_status` until ready → result routed to `asset-approval-gate`.
+→ `get_cost` confirmed → generate → poll `job_status` quietly → `job_display` once when ready → result routed to `asset-approval-gate`.
 
 **6. Handoff** — `higgsfield-package-adapter` returns the rendered clip + the named asset map (`character:maya`, `environment:alley`, `shot:S01-01`) and echoes the exact params used so the user can reproduce or tweak.

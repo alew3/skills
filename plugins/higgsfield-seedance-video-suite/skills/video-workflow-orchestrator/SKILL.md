@@ -33,14 +33,14 @@ FULL PIPELINE (stage → specialist → gate)
 
 Run in order; ★ = hard approval gate, do not pass without user approval.
 
-1. BRIEF — `creative-brief-grill` → approved brief incl. the CAST (1..N characters), the LOCATIONS (1..M environments), format (aspect, duration, platform, model target), style, execution mode. ★
+1. BRIEF — `creative-brief-grill` → approved brief incl. the CAST (1..N characters), the LOCATIONS (1..M environments), format (aspect, duration, platform, model target — video defaults to Seedance 2, images to GPT Image 2), style, execution mode. ★
 2. ASSETS (cast, locations, style) — DELEGATE to `image-workflow-orchestrator` (its character / character-sheet / environment / style stages, run as single-stage entries), each routed through `asset-approval-gate` ★. Gates pass only when EVERY character and EVERY environment is approved. See that orchestrator for the per-asset choreography — do not re-specify it here.
-3. SHOT LIST / STORYBOARD — `storyboard-builder` → per-shot schema + storyboard keyframes (each shot binds which character(s) + environment it uses) → `asset-approval-gate` ★ (coverage + continuity check).
+3. SHOT LIST + VISUAL STORYBOARD (MANDATORY — never skip) — `storyboard-builder` → the per-shot schema AND an actual VISUAL storyboard (a rendered keyframe per shot / storyboard sheet, each binding its character(s) + environment) → `asset-approval-gate` ★ (coverage + continuity check). Always produce and get approval on the visual storyboard; never go straight from the brief or assets to video.
 4. PER-SHOT VIDEO PROMPTS — **only after the storyboard ★ is approved** — `video-prompt-architect` per shot (the approved storyboard frame is the i2v start frame) → `passthrough-guardian` (validate prompt cleanliness in prompt mode).
 5. AUDIO (optional) — `audio-generator` for VO/dialogue; or choose native model audio at generation time.
 6. HANDOFF / RENDER — `higgsfield-package-adapter` → final package (PROMPT MODE) or drive generation (MCP MODE).
 
-**HARD GATE — storyboard before video.** The storyboard ★ must be approved by the user before you write ANY per-shot video prompt or generate ANY video clip. No video work — prompt authoring or rendering — happens until the storyboard is approved. Don't skip gates unless the user explicitly says so.
+**HARD GATE — visual storyboard before video.** You MUST create a visual storyboard (rendered keyframes / a storyboard sheet) and get the user's approval ★ before you write ANY per-shot video prompt or generate ANY clip. The storyboard is NOT optional — never go brief→video or assets→video directly. No video work happens until the storyboard is approved. Don't skip this (or any gate) unless the user explicitly says so.
 
 ==================================================
 EXECUTION MODE BEHAVIOR
@@ -48,7 +48,7 @@ EXECUTION MODE BEHAVIOR
 
 PROMPT MODE — every stage outputs `SEND VERBATIM` prompts (+ optional ready-to-run MCP args). No MCP calls. The deliverable is the handoff package of prompts + asset map.
 
-MCP MODE — stages resolve models/params per the MCP reference, preflight `get_cost` and CONFIRM credits before spending, generate, poll `job_status`, and route media through `asset-approval-gate`. For video, generate in PASSES: P1 a single look-test shot → get approval → P2 the core shots → P3 pickups. Never batch-render all shots before a P1 look-test. Echo the exact params used.
+MCP MODE — stages resolve models/params per the MCP reference, preflight `get_cost` and CONFIRM credits before spending, generate, then **poll quietly with `job_status` (text only) and show the finished asset once via `job_display` when it's done** (never display while rendering), and route media through `asset-approval-gate`. For video, generate in PASSES: P1 a single look-test shot → get approval → P2 the core shots → P3 pickups. Never batch-render all shots before a P1 look-test. Echo the exact params used.
 
 See `docs/DUAL_MODE.md` for the full contract.
 

@@ -4,9 +4,9 @@ Shared rules for writing image prompts across all image skills (`image-generator
 
 ---
 
-## 0. Pick the model first
+## 0. Model — GPT Image 2 by default
 
-Default split: **lots of / critical text, typography, UI, infographics, precise edits → GPT Image 2** (or **Nano Banana Pro** for 4K/multilingual typography); **general creative / illustrative / photoreal, fast iteration, image editing, multi-reference compositing → Nano Banana 2**; realistic people/portraits via Soul → **Soul 2**. Each model wants slightly different phrasing — see `docs/MODEL_PROMPTING.md` before writing the prompt (e.g. GPT Image 2 honors "no X" negatives; Nano Banana 2 wants positive framing like "empty street", not "no cars").
+The suite standardizes on **GPT Image 2** (`gpt_image_2`) for ALL images. Write natural-language prompts; it honors explicit "no X" negatives, renders text well, and accepts reference images (up to ~16) for consistency. Override only for a capability it lacks — a trained reusable **Soul** identity (`soul_2`), or transparency (generate on a solid background, then `remove_background`). See `docs/MODEL_PROMPTING.md`.
 
 ---
 

@@ -25,7 +25,7 @@ DESIGN-SHEET DELIVERABLE (the storyboard sheet look)
 
 Beyond the shot list, the storyboard image is a single polished landscape STORYBOARD SHEET — see `templates/storyboard-template.md`. Layout: a TITLE BAR ("STORYBOARD – <title>" + OBJECTIVE); a grid of NUMBERED, TITLED panels, each with a 2–3 line caption beneath; and a BOTTOM BAR (VISUAL STYLE & TONE · COLOR PALETTE swatches · CAMERA NOTES · KEY ELEMENTS). The SAME character(s) + environment + grade across every panel.
 
-The sheet is TEXT-HEAVY (title, panel titles, captions, bar labels) → prefer **GPT Image 2** or **Nano Banana Pro** (`docs/MODEL_PROMPTING.md`); page aspect 16:9.
+The sheet is TEXT-HEAVY (title, panel titles, captions, bar labels); use the project-standard **GPT Image 2** (`docs/MODEL_PROMPTING.md`); page aspect 16:9.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -46,7 +46,11 @@ If the brief's beats or sequence intent are unclear, clarify that first — a we
 STEP 2 — EXECUTE (dual mode)
 ==================================================
 
-Always produce the SHOT LIST (the primary deliverable). Then, per execution mode, produce the storyboard image:
+Produce BOTH, always:
+1. the SHOT LIST (per-shot schema below), and
+2. the VISUAL STORYBOARD as a **scene-by-scene design sheet** — the titled grid of NUMBERED, TITLED panels, each with a caption beneath, plus the bottom info bar (visual style/tone · palette · camera notes · key elements), in the format of `templates/storyboard-template.md` and the DESIGN-SHEET DELIVERABLE above.
+
+Do NOT deliver only a shot list — the scene-by-scene visual storyboard is required every time. Then, per execution mode:
 
 PROMPT MODE → emit the `SEND VERBATIM` block for the storyboard page (a labeled-panel grid, captions short), OR per-panel prompts if rendering each panel separately; put model/aspect/reference notes outside it.
 

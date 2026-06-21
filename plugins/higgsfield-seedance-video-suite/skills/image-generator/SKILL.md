@@ -28,7 +28,7 @@ Before generating, make sure you know — and ask, in ONE grouped message, anyth
 - ASPECT RATIO / FORMAT — 1:1, 4:5, 2:3, 16:9, 9:16, 21:9…
 - REFERENCES — any image to match (identity/style/composition)?
 - EXECUTION MODE — generate now via Higgsfield, or just hand over the prompt?
-- If MCP mode: MODEL + quality/resolution + count (resolve per the MCP reference).
+- If MCP mode: MODEL (default `gpt_image_2`) + quality/resolution + count (resolve per the MCP reference).
 
 If the creative intent itself is unclear, clarify that first — the right format of the wrong thing is still wrong.
 

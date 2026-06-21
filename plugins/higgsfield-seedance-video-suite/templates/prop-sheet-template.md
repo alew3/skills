@@ -2,7 +2,7 @@
 
 Produces a single, polished landscape **prop / object design sheet**: header, hero render, multi-angle views, detail & material callouts, scale reference, variants/states, and color palette — one cohesive image that locks the object's identity for downstream shots.
 
-**TEXT-HEAVY** (title, labels, hex, callouts) → prefer **GPT Image 2** or **Nano Banana Pro**; aspect **16:9**. See `docs/MODEL_PROMPTING.md`. For consistency, lock the hero render first and reference it; if a view drifts, derive it separately (master→derive) and recomposite.
+**TEXT-HEAVY** (title, labels, hex, callouts) → use **GPT Image 2** (project standard); aspect **16:9**. See `docs/MODEL_PROMPTING.md`. For consistency, lock the hero render first and reference it; if a view drifts, derive it separately (master→derive) and recomposite.
 
 PROP: prop:<name> · CATEGORY: [weapon | tool | vehicle | trophy | device | accessory | signage | …] · HERO (identity lock): [media_id if available]
 

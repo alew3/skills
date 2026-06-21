@@ -110,9 +110,9 @@ Post-processing: `upscale_video` (bytedance: needs `width`+`height`, `preset:aig
 
 ## 5. Model quick-pick (verify live with `models_explore`)
 
-**Image** — lots of/critical **text, typography, diagrams** → `gpt_image_2` or `nano_banana_pro`; **general creative / illustrative / photoreal + image editing** → `nano_banana_2`; realistic people/UGC/fashion → `soul_2` (+`soul_id`); cinematic still → `soul_cinematic` / `cinematic_studio_2_5`; precise edit/transform → `seedream_v4_5` / `flux_kontext`; logos/vector/icons → `recraft-v4-1` (`model_type:vector`); environment/location → `soul_location`; text-only consistent character → `soul_cast` (16:9); game sprite sheet → `autosprite`. Per-model prompt phrasing: `docs/MODEL_PROMPTING.md`.
+**Image — default `gpt_image_2` for everything** (project standard: text, photoreal, illustration, design sheets, edits). Override only when GPT Image 2 can't do it: trained reusable identity → `soul_2`/`soul_cinematic` (+`soul_id`); 4K multilingual typography → `nano_banana_pro`; vector logos/icons → `recraft-v4-1` (`model_type:vector`); game sprite sheet → `autosprite`. Per-model prompt phrasing: `docs/MODEL_PROMPTING.md`.
 
-**Video** — realistic hero/outdoor → `veo3_1` (`quality:ultra`); multi-shot character story / 4K / cheap → `kling3_0`; reference-driven product + native audio + identity → `seedance_2_0`; fast t2v / single start-frame → `kling3_0_turbo`; Higgsfield-native flagship cinema → `cinematic_studio_3_0`; physics + facial emotion short → `minimax_hailuo`; viral one-image template → `presets_show` → `higgsfield_preset`; product ad → `marketing_studio_video`; YouTube → shorts → `clipify`.
+**Video — default `seedance_2_0` for everything** (project standard: identity-consistent text/image-to-video with native audio). Override only when needed: multi-shot character story → `kling3_0`; photoreal hero/outdoor → `veo3_1`; viral one-image template → `presets_show` → `higgsfield_preset`; product ad → `marketing_studio_video`; YouTube → shorts → `clipify`.
 
 **Audio (TTS only)** — default voiceover/dubbing → `text2speech_v2_elevenlabs`; long narration → `text2speech_v2_seed_speech`; clone from ~3s → `text2speech_v2_vibe_voice`; low-latency multilingual → `text2speech_v2_cozy_voice`. Pick voice via `list_voices` (pass exact `voice_id` + `voice_type`). `generate_audio` is **speech only** — it cannot make music/SFX (those models are game-pipeline-only; decline general music/SFX requests).
 
@@ -152,7 +152,7 @@ Principle: pick the **dedicated tool** over re-generating (e.g. enhance with `up
 | image-generator | `generate_image` |
 | character-designer | `generate_image` (+ `show_characters`/`show_reference_elements` for reuse) |
 | character-sheet-builder | `generate_image` (master → derive views) |
-| environment-sheet-builder | `generate_image` (`soul_location` / Nano Banana Pro) |
+| environment-sheet-builder | `generate_image` (`gpt_image_2`) |
 | style-board-builder | `generate_image` |
 | storyboard-builder | `generate_image` (frames) |
 | video-prompt-architect | `generate_video` (+ `motion_control` when a driving clip exists) |

@@ -26,7 +26,7 @@ DESIGN-SHEET DELIVERABLE (the look to produce)
 
 The headline deliverable is a single polished landscape ENVIRONMENT DESIGN SHEET — see `templates/environment-sheet-template.md`. Sections: HEADER + meta row; 1 MAIN SCENERY hero render with numbered callouts; 2 ENVIRONMENT VIEWS (~6 labeled thumbnails A–F of the same place); 3 PROP BREAKDOWN (~8 props); 4 MATERIAL / DETAIL CALLOUTS; 5 COLOR PALETTE with hex; 6 WORLD NOTES; 7 DESIGN NOTES + top-down map — clean editorial infographic layout.
 
-The annotated sheet is TEXT-HEAVY (titles, lettered callouts, captions, hex) → prefer **GPT Image 2** or **Nano Banana Pro** for the SHEET (`docs/MODEL_PROMPTING.md`); aspect 16:9. (The empty-location hero render on its own can still use `soul_location` / `nano_banana_pro`.) Lock the master first and hold geometry + light direction identical across all views.
+The annotated sheet is TEXT-HEAVY (titles, lettered callouts, captions, hex); use the project-standard **GPT Image 2** (`docs/MODEL_PROMPTING.md`); aspect 16:9. Lock the master first and hold geometry + light direction identical across all views.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -40,7 +40,7 @@ Ask, in ONE grouped message, anything missing or ambiguous (offer a default per 
 - ANGLES — which derived views: reverse-wide, medium, detail/inserts (default: wide master + reverse-wide + 1–2 mediums).
 - ASPECT RATIO — default `16:9` (or `21:9` for sweeping establishers); narrower only if a shot needs it.
 - EXECUTION MODE — generate now via Higgsfield, or just hand over the prompts?
-- If MCP mode: MODEL + quality/resolution + count (prefer `soul_location` or `nano_banana_pro`; resolve per the MCP reference).
+- If MCP mode: MODEL + quality/resolution + count (default `gpt_image_2`; resolve per the MCP reference).
 
 If the creative intent itself is unclear (vague location, undefined mood), clarify that first — the right angle of the wrong place is still wrong.
 
@@ -56,7 +56,7 @@ Build in sequence (master → bible → derived views), never one mega-prompt:
 
 PROMPT MODE → emit per-angle `SEND VERBATIM` blocks (master first, then each view), each carrying the verbatim location bible before its scene text. Put model/aspect/reference notes outside the blocks.
 
-MCP MODE → resolve model+params (`models_explore` recommend→get; prefer `soul_location` / `nano_banana_pro`), convert the master to a `media_id`/`job_id` for derived views (never a URL), preflight with `get_cost:true` and confirm credits, `generate_image` per view, poll `job_status`, then route each result to `asset-approval-gate`. Echo the exact `params`.
+MCP MODE → resolve model+params (`models_explore` recommend→get; default `gpt_image_2`), convert the master to a `media_id`/`job_id` for derived views (never a URL), preflight with `get_cost:true` and confirm credits, `generate_image` per view, poll `job_status`, then route each result to `asset-approval-gate`. Echo the exact `params`.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
 

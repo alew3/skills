@@ -2,7 +2,7 @@
 
 Two deliverables: (1) the **shot list** (machine-readable rows, the handoff to `video-prompt-architect`) and (2) a single **storyboard sheet** — a titled grid of numbered, captioned panels plus a bottom info bar. This file is the sheet blueprint; for the per-shot row schema see below + `docs/VIDEO_PROMPT_CONVENTIONS.md`.
 
-**The sheet is TEXT-HEAVY** (title, panel titles, captions, bar labels) → prefer **GPT Image 2** or **Nano Banana Pro**; aspect **16:9** (or 3:2). Keep the same character(s) + environment + grade across all panels. See `docs/MODEL_PROMPTING.md`.
+**The sheet is TEXT-HEAVY** (title, panel titles, captions, bar labels) → use **GPT Image 2** (project standard); aspect **16:9** (or 3:2). Keep the same character(s) + environment + grade across all panels. See `docs/MODEL_PROMPTING.md`.
 
 ## Shot-list rows (per shot)
 | shot | dur(s) | size | camera move | subjects | action (one beat) | location | dialogue/SFX | refs_used | continuity | purpose |

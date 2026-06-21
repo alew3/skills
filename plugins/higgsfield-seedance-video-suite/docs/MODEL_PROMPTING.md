@@ -6,17 +6,14 @@ Per-model prompt strategy for the three workhorse models, plus when to pick whic
 
 ---
 
-## Model selection (the rule of thumb)
+## Model selection
 
-| Need | Use |
-|---|---|
-| Image with **lots of / critical text**, typography, UI mockups, infographics, precise instruction-edits | **GPT Image 2** (or **Nano Banana Pro** for 4K/multilingual typography) |
-| **Creative / illustrative / photoreal** hero images, fast iteration, image editing, multi-reference compositing (text minimal) | **Nano Banana 2** |
-| Max factual fidelity + **heavy/precise in-image text** at 4K | **Nano Banana Pro** |
-| Realistic people / UGC / fashion portraits, character via Soul | **Soul 2** |
-| **Reference-driven identity/product video** with native synced audio | **Seedance 2** (multi-shot story → Kling 3; photoreal hero shot → Veo) |
+**Project standard: use GPT Image 2 (`gpt_image_2`) for ALL image generation.** It handles text-heavy layouts, photoreal, illustration, multi-element design sheets, and reference-based edits well, so the suite standardizes on it for consistency. Override only for a capability it lacks:
+- a **trained reusable Soul identity** → requires `soul_2` / `soul_cinematic` (GPT Image 2 has no Soul; use reference-image + Element instead — see below);
+- **transparency** → generate on a solid background, then `remove_background`;
+- niche: 4K multilingual typography → `nano_banana_pro`; vector logos/icons → `recraft-v4-1`.
 
-Default split: **text-heavy → GPT Image 2; creative → Nano Banana 2.**
+For **video**, the project standard is **Seedance 2** (`seedance_2_0`) for all generation — identity-consistent text/image-to-video with native synchronized audio. Override only when needed: multi-shot narrative → Kling 3; photoreal hero shot → Veo. The per-model playbooks below are reference for explicit overrides.
 
 ---
 

@@ -24,7 +24,7 @@ DESIGN-SHEET DELIVERABLE (the look to produce)
 
 The headline deliverable is a single polished landscape CHARACTER DESIGN / MODEL SHEET — see `templates/character-sheet-template.md`. Sections: HEADER (name + height/role); TURNAROUND (full-body FRONT / SIDE / BACK); a labeled FACIAL EXPRESSIONS row (~5 portraits); OUTFIT & EQUIPMENT BREAKDOWN (flat shots + bullet callouts); DETAIL CALLOUTS; COLOR PALETTE with hex; and a small WORLD SETTING thumbnail — clean editorial infographic layout, white background, sans-serif labels.
 
-This sheet is TEXT-HEAVY (title, labels, hex, callouts) → prefer **GPT Image 2** or **Nano Banana Pro** (`docs/MODEL_PROMPTING.md`); aspect 16:9. Default: generate the whole sheet from one assembled prompt that references the approved master for identity. Fidelity fallback: if a panel drifts, derive that panel separately (master→derive, below) and recomposite.
+This sheet is TEXT-HEAVY (title, labels, hex, callouts); use the project-standard **GPT Image 2** (`docs/MODEL_PROMPTING.md`); aspect 16:9. Default: generate the whole sheet from one assembled prompt that references the approved master for identity. Fidelity fallback: if a panel drifts, derive that panel separately (master→derive, below) and recomposite.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)

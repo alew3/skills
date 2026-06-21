@@ -30,7 +30,7 @@ Before generating, make sure you know — and ask, in ONE grouped message, anyth
 - SHOT TYPE & CAMERA MOVE — shot size + ONE primary camera move.
 - TEXT-TO-VIDEO vs IMAGE-TO-VIDEO — is there an approved START FRAME? (i2v is the production path for character work.)
 - AUDIO — native model audio vs none (vs a separate `audio-generator` track).
-- MODEL — per the MCP reference.
+- MODEL — default **Seedance 2** (`seedance_2_0`, project standard); override per the MCP reference only if needed (e.g. multi-shot → Kling 3, photoreal hero → Veo).
 - EXECUTION MODE — generate now via Higgsfield, or just hand over the prompt?
 
 If the creative intent itself is unclear (vague action, undefined goal, conflicting references), clarify that first — the right format of the wrong shot is still wrong.

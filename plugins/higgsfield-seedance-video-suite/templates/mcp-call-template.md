@@ -30,7 +30,7 @@ The standard MCP-mode sequence shared by all generation skills. See `docs/HIGGSF
 EXAMPLES
 
 # generate_image with a reference
-{ "params": { "model": "soul_2", "prompt": "<prompt>", "aspect_ratio": "2:3", "quality": "2k",
+{ "params": { "model": "gpt_image_2", "prompt": "<prompt>", "aspect_ratio": "2:3", "resolution": "2k", "quality": "high",
   "medias": [{ "value": "<media_id>", "role": "image" }], "count": 1 } }
 
 # generate_video image-to-video from an approved still

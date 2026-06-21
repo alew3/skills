@@ -45,7 +45,7 @@ EXECUTION MODE BEHAVIOR
 
 PROMPT MODE — each stage outputs `SEND VERBATIM` image prompts (+ optional MCP args); no MCP calls; deliverable is the prompt package + asset map.
 
-MCP MODE — resolve model/params per the MCP reference, convert references to media_ids (never URLs), preflight `get_cost` and CONFIRM credits, `generate_image`, poll `job_status`, route media through `asset-approval-gate`. For sheets, follow master→derive (generate the master, approve it, then derive each view from it). Echo the exact params used.
+MCP MODE — resolve model/params per the MCP reference, convert references to media_ids (never URLs), preflight `get_cost` and CONFIRM credits, `generate_image`, then **poll quietly with `job_status` (text only) and show the finished image once via `job_display` when done** (never display while rendering), route media through `asset-approval-gate`. For sheets, follow master→derive (generate the master, approve it, then derive each view from it). Echo the exact params used.
 
 See `docs/DUAL_MODE.md`.
 

@@ -2,7 +2,7 @@
 
 Produces a single, polished landscape **character design / model sheet** (studio style): header, full turnaround, expression row, outfit & equipment breakdown with callouts, color palette with hex, and a small world-setting panel — one cohesive image.
 
-**TEXT-HEAVY** (title, labels, hex, bullet callouts) → prefer **GPT Image 2** or **Nano Banana Pro**; aspect **16:9**. See `docs/MODEL_PROMPTING.md`. For maximum identity fidelity, lock the character master first (`character-designer`) and reference it; if a panel drifts, derive it separately (master→derive) and recomposite.
+**TEXT-HEAVY** (title, labels, hex, bullet callouts) → use **GPT Image 2** (project standard); aspect **16:9**. See `docs/MODEL_PROMPTING.md`. For maximum identity fidelity, lock the character master first (`character-designer`) and reference it; if a panel drifts, derive it separately (master→derive) and recomposite.
 
 CHARACTER: character:<name> · IDENTITY BLOCK (verbatim from character-designer): [...] · MASTER (for identity lock): [media_id if available]
 

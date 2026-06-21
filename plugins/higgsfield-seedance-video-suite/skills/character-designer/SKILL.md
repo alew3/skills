@@ -26,7 +26,7 @@ Ask, in ONE grouped message, anything missing or ambiguous (offer a default per 
 - WHICH CHARACTER — name + role/archetype; one character only this run.
 - REALISM vs STYLIZED — photoreal person / illustration / 3D / anime / etc. (do NOT default to "cinematic").
 - IDENTITY ANCHORS — the bible fields (see conventions §5): bone structure / face shape, eyes, hair, skin tone, age, build, distinctive marks, base wardrobe, 3–5 color palette. Fill gaps with concrete choices and flag them as inferred.
-- REUSE STRATEGY — **Soul** (train one person, `soul_2`/`soul_cinematic`, ONE identity per generation, best for one person across many solo shots) vs **Element** (`<<<element_id>>>` embedded in the prompt, multi-subject, non-Soul models, instant from one image). They are **incompatible at generation time** — if the user hasn't said, ask. Generic fallback: pass the master image via `medias`.
+- REUSE STRATEGY — with the project-standard **GPT Image 2**, reuse the character via its approved **master as a reference image** (`medias`, up to ~16 refs) and/or a registered **Element** (`<<<element_id>>>` in the prompt; supports multi-subject shots). A trained reusable **Soul** is also available but requires switching that character to `soul_2`/`soul_cinematic` (one identity per generation) — offer it only if the user wants a trained digital double. Default to master-reference + Element unless they ask for Soul.
 - ASPECT RATIO — portrait master defaults to `2:3` or `4:5`; confirm (per-model — e.g. `soul_2` lacks `4:5`).
 - EXECUTION MODE — generate the master now via Higgsfield, or just hand over the master prompt + bible?
 - If MCP mode: MODEL + quality/resolution + count (resolve per the MCP reference).

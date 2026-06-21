@@ -6,7 +6,7 @@ FORMAT:
 [aspect ratio / duration (allowed step for the model) / text-to-video or image-to-video / native audio?]
 
 MODEL TARGET:
-[seedance_2_0 / kling3_0 / veo3_1 / cinematic_studio_3_0 / …]
+[seedance_2_0 (default) — override to kling3_0 / veo3_1 only if needed]
 
 REFERENCES:
 [start_image = <approved storyboard frame / character master>; other refs by role]
@@ -28,4 +28,4 @@ SEND VERBATIM:
 [The final assembled video prompt only — nothing else. In i2v, describe only motion/camera/changes; do not re-describe what the start frame already fixes.]
 
 MCP CALL (optional, same prompt string):
-{ "params": { "model": "", "prompt": "<same as SEND VERBATIM>", "aspect_ratio": "", "duration": 0, "medias": [{ "role": "start_image", "value": "<media_id>" }] } }
+{ "params": { "model": "seedance_2_0", "prompt": "<same as SEND VERBATIM>", "aspect_ratio": "", "duration": 0, "medias": [{ "role": "start_image", "value": "<media_id>" }] } }

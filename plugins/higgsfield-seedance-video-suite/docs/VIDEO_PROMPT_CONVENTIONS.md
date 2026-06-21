@@ -6,6 +6,12 @@ Shared rules for writing video prompts (`video-prompt-architect`, `storyboard-bu
 
 ---
 
+## 0. Model — Seedance 2 by default
+
+The suite standardizes on **Seedance 2** (`seedance_2_0`) for all video — identity-consistent text/image-to-video with native synchronized audio. Override only for a need it doesn't cover: multi-shot narrative → Kling 3; photoreal hero shot → Veo. Confirm allowed `duration`/`aspect_ratio` via `models_explore`.
+
+---
+
 ## 1. Prompt structure (the order the models reward)
 
 Seedance's 6-part formula: **[Subject + appearance] + [Action/behavior] + [Environment + lighting] + [Camera movement + shot type] + [Style] + [Constraints]**, target **60–100 words**. Equivalent compressed stack: **Subject → Action → Camera → Style → Constraints.**

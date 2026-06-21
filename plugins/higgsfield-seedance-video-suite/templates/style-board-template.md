@@ -2,7 +2,7 @@
 
 Produces a single polished landscape STYLE / MOOD BOARD that LOCKS the project look (palette + lighting + grade + art style) — the look bible downstream skills thread into every generation.
 
-**TEXT-HEAVY** (title, tile labels, hex, notes) → prefer **GPT Image 2** or **Nano Banana Pro**; aspect **16:9**. See `docs/MODEL_PROMPTING.md`.
+**TEXT-HEAVY** (title, tile labels, hex, notes) → use **GPT Image 2** (project standard); aspect **16:9**. See `docs/MODEL_PROMPTING.md`.
 
 PROJECT: [name] · ART STYLE: [photoreal | painterly concept | cel-shaded anime | flat vector | …] (not necessarily "cinematic")
 
