@@ -110,9 +110,9 @@ Post-processing: `upscale_video` (bytedance: needs `width`+`height`, `preset:aig
 
 ## 5. Model quick-pick (verify live with `models_explore`)
 
-**Image — default `gpt_image_2` for everything** (project standard: text, photoreal, illustration, design sheets, edits). Override only when GPT Image 2 can't do it: trained reusable identity → `soul_2`/`soul_cinematic` (+`soul_id`); 4K multilingual typography → `nano_banana_pro`; vector logos/icons → `recraft-v4-1` (`model_type:vector`); game sprite sheet → `autosprite`. Per-model prompt phrasing: `docs/MODEL_PROMPTING.md`.
+**Image — default `gpt_image_2` for everything** (project standard: text, photoreal, illustration, design sheets, edits). Override when the user specifies a model, or when GPT Image 2 can't do it: trained reusable identity → `soul_2`/`soul_cinematic` (+`soul_id`); 4K multilingual typography → `nano_banana_pro`; vector logos/icons → `recraft-v4-1` (`model_type:vector`); game sprite sheet → `autosprite`. Per-model prompt phrasing: `docs/MODEL_PROMPTING.md`.
 
-**Video — default `seedance_2_0` for everything** (project standard: identity-consistent text/image-to-video with native audio). Override only when needed: multi-shot character story → `kling3_0`; photoreal hero/outdoor → `veo3_1`; viral one-image template → `presets_show` → `higgsfield_preset`; product ad → `marketing_studio_video`; YouTube → shorts → `clipify`.
+**Video — default `seedance_2_0` for everything** (project standard: identity-consistent text/image-to-video with native audio). Override when the user specifies a model, or when needed: multi-shot character story → `kling3_0`; photoreal hero/outdoor → `veo3_1`; viral one-image template → `presets_show` → `higgsfield_preset`; product ad → `marketing_studio_video`; YouTube → shorts → `clipify`.
 
 **Audio (TTS only)** — default voiceover/dubbing → `text2speech_v2_elevenlabs`; long narration → `text2speech_v2_seed_speech`; clone from ~3s → `text2speech_v2_vibe_voice`; low-latency multilingual → `text2speech_v2_cozy_voice`. Pick voice via `list_voices` (pass exact `voice_id` + `voice_type`). `generate_audio` is **speech only** — it cannot make music/SFX (those models are game-pipeline-only; decline general music/SFX requests).
 

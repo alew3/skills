@@ -56,7 +56,7 @@ Where it helps, also give the **ready-to-run MCP arguments** for the same prompt
 
 ## Step 3b — MCP MODE execution
 
-1. **Resolve the model & params** per `docs/HIGGSFIELD_MCP_REFERENCE.md` — `models_explore(action:"recommend", …)` then `models_explore(action:"get", …)` to confirm exact enums (aspect_ratio, duration steps, quality/resolution, media roles). Don't invent param values.
+1. **Resolve the model & params** per `docs/HIGGSFIELD_MCP_REFERENCE.md`. **Use the model the user specified if they named one — an explicit choice overrides the default;** otherwise use the project defaults (images → `gpt_image_2`, video → `seedance_2_0`). Then `models_explore(action:"get", …)` to confirm exact enums (aspect_ratio, duration steps, quality/resolution, media roles). Don't invent param values.
 2. **Reference media:** convert any URL/local file to a `media_id` first (`media_import_url` / `media_upload_widget`) — never pass a URL in `medias[].value`.
 3. **Preflight cost:** call with `get_cost:true`, show the credit cost, and **confirm with the user before spending** (especially 4K / high quality / count>1 / video).
 4. **Generate, then poll quietly:** poll with **`job_status(jobId, sync:true)`** until terminal (respect `poll_after_seconds`) — text only; do not surface intermediate polls. **Do NOT call `job_display` until the job is finished** — `job_display` renders the result canvas, so calling it mid-run shows a blank image every time. When the job is completed, call **`job_display(id)` exactly once** to show the final asset.

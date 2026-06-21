@@ -8,6 +8,8 @@ Per-model prompt strategy for the three workhorse models, plus when to pick whic
 
 ## Model selection
 
+**If the user specifies an image or video model, use that model — an explicit choice always overrides the defaults below.** Otherwise apply the project standards:
+
 **Project standard: use GPT Image 2 (`gpt_image_2`) for ALL image generation.** It handles text-heavy layouts, photoreal, illustration, multi-element design sheets, and reference-based edits well, so the suite standardizes on it for consistency. Override only for a capability it lacks:
 - a **trained reusable Soul identity** → requires `soul_2` / `soul_cinematic` (GPT Image 2 has no Soul; use reference-image + Element instead — see below);
 - **transparency** → generate on a solid background, then `remove_background`;
