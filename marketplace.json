@@ -1,5 +1,6 @@
 {
   "schema_version": "0.1.0",
+  "version": "0.2.0",
   "id": "alew3-skills",
   "name": "alew3 skills",
   "description": "A local-first marketplace repository for modular AI skill plugins. Each plugin can contain multiple independently callable skills plus an optional orchestrator skill.",

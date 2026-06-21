@@ -29,7 +29,12 @@ This repo carries **two parallel manifest formats** — keep both in sync when a
 
 Skills live at `plugins/<plugin-id>/skills/<skill-id>/SKILL.md` and are auto-discovered by Claude Code once the plugin is installed — this path serves both systems.
 
-**Keep the plugin `version` in sync across all four places** when you change a plugin: the custom `marketplace.json` entry, the custom `plugin.json`, the native `.claude-plugin/plugin.json`, and the native `.claude-plugin/marketplace.json` entry. `validate_marketplace.py` now fails on any mismatch. Bump the version (semver) whenever a plugin's behavior or content changes.
+**Two version levels — keep both in sync:**
+
+- **Plugin version** — the per-plugin `version`, which must match across **all four places**: the custom `marketplace.json` entry, the custom `plugin.json`, the native `.claude-plugin/plugin.json`, and the native `.claude-plugin/marketplace.json` entry. `validate_marketplace.py` fails on any mismatch. Bump it (semver) whenever a plugin's behavior or content changes.
+- **Marketplace (registry) version** — the top-level `version` on the registry itself: native `.claude-plugin/marketplace.json` `version` and custom `marketplace.json` `version` (distinct from `schema_version`, which tracks the manifest *format*, not its content). Bump this whenever the registry contents change (e.g. a plugin bump or a new plugin) — it's the signal clients like Claude for Desktop use to detect the marketplace changed and re-fetch instead of serving a cached catalog. Keep the two registry `version` fields equal.
+
+Note both manifest systems cache aggressively: the Claude Code CLI clones the marketplace under `~/.claude/plugins/marketplaces/<name>/` and caches a catalog in `~/.claude/plugins/plugin-catalog-cache.json`; Claude for Desktop keeps its own copy in the app's IndexedDB (`~/Library/Application Support/Claude`). Reinstalling a *plugin* does not refresh the *marketplace* — run `/plugin marketplace update <name>` (CLI) or remove + re-add the marketplace (Desktop) after pushing version changes.
 
 ## Architecture
 
