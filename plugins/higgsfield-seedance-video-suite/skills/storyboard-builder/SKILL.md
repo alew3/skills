@@ -17,6 +17,15 @@ SHARED CONTRACT (read these)
 - Storyboard frames are images: `docs/IMAGE_PROMPT_CONVENTIONS.md`
 - Camera/shot vocabulary, motion, and continuity (180°, eyeline, identity-in-start-frame): `docs/VIDEO_PROMPT_CONVENTIONS.md`
 - Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
+- Per-model strategy + which model: `docs/MODEL_PROMPTING.md`
+
+==================================================
+DESIGN-SHEET DELIVERABLE (the storyboard sheet look)
+==================================================
+
+Beyond the shot list, the storyboard image is a single polished landscape STORYBOARD SHEET — see `templates/storyboard-template.md`. Layout: a TITLE BAR ("STORYBOARD – <title>" + OBJECTIVE); a grid of NUMBERED, TITLED panels, each with a 2–3 line caption beneath; and a BOTTOM BAR (VISUAL STYLE & TONE · COLOR PALETTE swatches · CAMERA NOTES · KEY ELEMENTS). The SAME character(s) + environment + grade across every panel.
+
+The sheet is TEXT-HEAVY (title, panel titles, captions, bar labels) → prefer **GPT Image 2** or **Nano Banana Pro** (`docs/MODEL_PROMPTING.md`); page aspect 16:9.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)

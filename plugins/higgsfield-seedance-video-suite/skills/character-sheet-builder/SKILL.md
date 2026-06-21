@@ -16,6 +16,15 @@ SHARED CONTRACT (read these)
 - Clarify + execution mode: `docs/DUAL_MODE.md`
 - How to write the prompt (esp. §5 consistency, §6 reference sheets): `docs/IMAGE_PROMPT_CONVENTIONS.md`
 - Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
+- Per-model strategy + which model: `docs/MODEL_PROMPTING.md`
+
+==================================================
+DESIGN-SHEET DELIVERABLE (the look to produce)
+==================================================
+
+The headline deliverable is a single polished landscape CHARACTER DESIGN / MODEL SHEET — see `templates/character-sheet-template.md`. Sections: HEADER (name + height/role); TURNAROUND (full-body FRONT / SIDE / BACK); a labeled FACIAL EXPRESSIONS row (~5 portraits); OUTFIT & EQUIPMENT BREAKDOWN (flat shots + bullet callouts); DETAIL CALLOUTS; COLOR PALETTE with hex; and a small WORLD SETTING thumbnail — clean editorial infographic layout, white background, sans-serif labels.
+
+This sheet is TEXT-HEAVY (title, labels, hex, callouts) → prefer **GPT Image 2** or **Nano Banana Pro** (`docs/MODEL_PROMPTING.md`); aspect 16:9. Default: generate the whole sheet from one assembled prompt that references the approved master for identity. Fidelity fallback: if a panel drifts, derive that panel separately (master→derive, below) and recomposite.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -66,12 +75,11 @@ RATIONALE:
 SHEET PLAN:
 [The panels and the single variable per panel — e.g. Turnaround: front / 45° / side / back, A-pose, identical staging]
 
-SEND VERBATIM (per view):
-View 1 — [label]:
-[complete prompt for this panel only]
-View 2 — [label]:
-[complete prompt for this panel only]
-[…one block per panel…]
+SEND VERBATIM:
+[Default — the full assembled DESIGN-SHEET prompt (one block producing the whole sheet, identity referenced from the master).]
+[Fallback (master→derive) — one block per view/emotion/pose, each a complete self-contained prompt, for when the one-shot sheet drifts:]
+View 1 — [label]: [complete prompt for this panel only]
+View 2 — [label]: [complete prompt for this panel only]
 
 SUGGESTED PARAMETERS:
 [aspect ratio, model, quality/resolution, count, reuse path (master ref / soul_id / element)]

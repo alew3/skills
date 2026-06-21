@@ -18,6 +18,15 @@ SHARED CONTRACT (read these)
 - Clarify + execution mode: `docs/DUAL_MODE.md`
 - How to write the prompt (esp. §6 Reference sheets, §7 cinematography): `docs/IMAGE_PROMPT_CONVENTIONS.md`
 - Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
+- Per-model strategy + which model: `docs/MODEL_PROMPTING.md`
+
+==================================================
+DESIGN-SHEET DELIVERABLE (the look to produce)
+==================================================
+
+The headline deliverable is a single polished landscape ENVIRONMENT DESIGN SHEET — see `templates/environment-sheet-template.md`. Sections: HEADER + meta row; 1 MAIN SCENERY hero render with numbered callouts; 2 ENVIRONMENT VIEWS (~6 labeled thumbnails A–F of the same place); 3 PROP BREAKDOWN (~8 props); 4 MATERIAL / DETAIL CALLOUTS; 5 COLOR PALETTE with hex; 6 WORLD NOTES; 7 DESIGN NOTES + top-down map — clean editorial infographic layout.
+
+The annotated sheet is TEXT-HEAVY (titles, lettered callouts, captions, hex) → prefer **GPT Image 2** or **Nano Banana Pro** for the SHEET (`docs/MODEL_PROMPTING.md`); aspect 16:9. (The empty-location hero render on its own can still use `soul_location` / `nano_banana_pro`.) Lock the master first and hold geometry + light direction identical across all views.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)

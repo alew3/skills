@@ -1,14 +1,21 @@
-# Storyboard / Shot List Template
+# Storyboard Sheet Template
 
-A planning document, not a poster. One row per shot. Each shot binds the approved character(s) and environment it uses. See `docs/VIDEO_PROMPT_CONVENTIONS.md`.
+Two deliverables: (1) the **shot list** (machine-readable rows, the handoff to `video-prompt-architect`) and (2) a single **storyboard sheet** — a titled grid of numbered, captioned panels plus a bottom info bar. This file is the sheet blueprint; for the per-shot row schema see below + `docs/VIDEO_PROMPT_CONVENTIONS.md`.
 
-GLOBALS (apply to all shots): aspect ratio · palette · grade · lens/film look · time of day
+**The sheet is TEXT-HEAVY** (title, panel titles, captions, bar labels) → prefer **GPT Image 2** or **Nano Banana Pro**; aspect **16:9** (or 3:2). Keep the same character(s) + environment + grade across all panels. See `docs/MODEL_PROMPTING.md`.
 
-Per-shot rows:
+## Shot-list rows (per shot)
+| shot | dur(s) | size | camera move | subjects | action (one beat) | location | dialogue/SFX | refs_used | continuity | purpose |
+|------|--------|------|-------------|----------|-------------------|----------|--------------|-----------|-----------|---------|
 
-| shot_id | dur(s) | shot_size | camera_move | subjects | action (one beat) | location | dialogue/SFX | refs_used | continuity | purpose |
-|---------|--------|-----------|-------------|----------|-------------------|----------|--------------|-----------|-----------|---------|
-| S01-01  | 5      | WS        | static      | maya     | enters, scans room | lab     | (none)       | character:maya, environment:lab, style-board | maya enters frame-left | establish |
-| S01-02  | 5      | MCU       | slow push-in| maya     | her eyes narrow    | lab     | SFX: hum     | character:maya, environment:lab | match S01-01 light | reveal |
+## Storyboard sheet layout
+- TITLE BAR: "STORYBOARD – <TITLE>" + "OBJECTIVE: <...>".
+- PANEL GRID: N numbered panels (e.g. 12 in a 4×3 grid). Each: number + short title (e.g. "1. INTRO – THE STAGE IS SET"), a cinematic image of the beat, and a 2–3 line caption beneath.
+- BOTTOM BAR: VISUAL STYLE & TONE (text) · COLOR PALETTE (swatches) · CAMERA NOTES (text) · KEY ELEMENTS (bullets) · optional logo.
 
-Rules: ONE motion + ONE action beat per shot; `purpose` blank ⇒ decorative ⇒ cut it; `refs_used` binds the shot to locked assets for continuity. Each storyboard keyframe (one still per shot) is generated from the bound character/environment/style refs and becomes the i2v start frame.
+SEND VERBATIM (example filled):
+```
+A professional storyboard sheet, landscape, dark editorial layout. TITLE: "STORYBOARD – ALE BASKETBALL DUNK CONTEST FINALS", subtitle "OBJECTIVE: SCORE A 50 TO WIN". A 4x3 grid of 12 numbered cinematic panels, each with a short title and a 2-3 line caption beneath — 1 INTRO wide arena, 2 backstage close-up, 3 walk to court, 4 the setup at the arc, 5 close-up focus, 6 the run-up, 7 takeoff, 8 the scorpion dunk, 9 the finish at the rim, 10 scoreboard reading "50 PERFECT SCORE", 11 the reaction, 12 the champion lifting a trophy. The SAME player (black jersey number 24) and the SAME indoor arena across all panels, cinematic high-contrast dramatic lighting. BOTTOM BAR: "VISUAL STYLE & TONE: cinematic, high contrast, realistic, high energy", a COLOR PALETTE swatch strip, "CAMERA NOTES: wide + tracking shots, slow-motion dunk, tight close-ups", and "KEY ELEMENTS: pressure, focus, athleticism, crowd energy, victory". Legible captions, consistent identity across panels, no warped text.
+```
+
+NEGATIVE: inconsistent character or arena between panels, unreadable captions, single-poster composition.
