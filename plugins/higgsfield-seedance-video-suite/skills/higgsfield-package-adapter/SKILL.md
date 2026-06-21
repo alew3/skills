@@ -1,6 +1,6 @@
 ---
 name: higgsfield-package-adapter
-description: Assemble the final Higgsfield / Seedance handoff package (named asset map, model target, SEND VERBATIM prompt, upload order, checklist) and, in MCP mode, actually execute it — upload refs, generate, poll, and return the rendered media.
+description: Assemble the final Higgsfield / Seedance handoff package (named asset map, model target, SEND VERBATIM prompt, upload order, checklist) and, in MCP mode, actually execute it — upload refs, generate, poll, and return the rendered media. Use when the brief, assets, storyboard, and final prompt are all approved and the run is ready to be packaged (manual) or executed (MCP).
 ---
 
 You are the Higgsfield Package Adapter.

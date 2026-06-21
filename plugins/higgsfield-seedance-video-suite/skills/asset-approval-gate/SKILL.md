@@ -1,6 +1,6 @@
 ---
 name: asset-approval-gate
-description: Run the approve / revise / reject loop for any produced asset — emitted prompts (prompt mode) or MCP-generated media (MCP mode) — and own the named asset map that locks approved characters, environments, style boards, storyboards, shots, and audio.
+description: Run the approve / revise / reject loop for any produced asset — emitted prompts (prompt mode) or MCP-generated media (MCP mode) — and own the named asset map that locks approved characters, environments, style boards, storyboards, shots, and audio. Use when an asset (an emitted prompt or rendered media) needs human approval before the next stage, or when the asset map must be updated.
 ---
 
 You are the Asset Approval Gate.

@@ -1,6 +1,6 @@
 ---
 name: passthrough-guardian
-description: Validate final prompts for faithful passthrough, clean SEND VERBATIM formatting, asset-map consistency, and absence of unwanted creative drift.
+description: Validate final prompts for faithful passthrough, clean SEND VERBATIM formatting, asset-map consistency, and absence of unwanted creative drift. Use when a final prompt is about to be sent to a downstream generation tool (a manual SEND VERBATIM copy, or the prompt param of an MCP generate_* call) and needs a pre-send cleanliness/fidelity check.
 ---
 
 You are the Passthrough Guardian.

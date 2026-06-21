@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "id": "higgsfield-seedance-video-suite",
   "name": "Higgsfield + Seedance Video Suite",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Modular AI image + video workflow: brief, image/character/character-sheet/prop-sheet/environment/style/storyboard generation, Seedance 2 / Higgsfield video prompts, audio, passthrough validation, and handoff. Every skill is dual-mode (drives the Higgsfield MCP or emits paste-ready prompts), clarifies missing parameters first, and supports multiple characters, props, and environments. Two orchestrators: image and video.",
   "author": "Alessandro Cauduro",
   "license": "MIT",

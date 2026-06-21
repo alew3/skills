@@ -48,7 +48,7 @@ If the character's intended look itself is unclear, resolve that (or get the mas
 STEP 2 — EXECUTE (dual mode) — master → derive each view
 ==================================================
 
-Core discipline (conventions §6): **a single text-to-image gen WILL drift across panels.** Do NOT write one mega-prompt for the whole sheet. Instead **master → derive each view**: regenerate each angle / expression / pose individually from the approved master, referencing it, varying ONLY the intended variable. Grid-prompting is allowed ONLY to bootstrap a master when none exists; the lock is per-view regeneration.
+Core discipline: **an *unconditioned* single gen WILL drift across panels.** The default assembled sheet prompt is acceptable *because it references the approved master* for identity — but if any panel drifts, **master → derive** that view: regenerate it individually from the approved master, referencing it, varying ONLY the intended variable. Grid-prompting is allowed ONLY to bootstrap a master when none exists; per-view regeneration is the drift-lock fallback.
 
 Hold IDENTICAL across every panel: plain light-grey seamless background, flat even lighting, eye-level camera, same scale/framing, same wardrobe, the verbatim identity block placed before scene text. Vary ONLY the intended variable (the angle, OR the expression, OR the pose). Repeat the preserve-list and explicit negatives every panel.
 

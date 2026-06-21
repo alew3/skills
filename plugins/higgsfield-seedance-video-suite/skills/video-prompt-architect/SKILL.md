@@ -95,6 +95,9 @@ SHOT SPEC:
 SEND VERBATIM:
 [Final video prompt only — one block per shot, numbered for a sequence]
 
+NEGATIVE PROMPT:
+[Optional explicit artifact-named negatives — e.g. avoid morphing, identity/face drift, temporal flicker, texture crawling, plastic waxy skin, extra/deformed fingers, melting background, unintended slow motion — paired with a positive lock (keep facial proportions, texture, and lighting consistent)]
+
 SUGGESTED PARAMETERS:
 [model, aspect ratio, duration (allowed step), audio (native/none), start frame (media_id or none)]
 

@@ -1,6 +1,6 @@
 ---
 name: style-board-builder
-description: Build a style / mood / palette board — a single labeled sheet of palette chips, material/texture samples, lighting studies, and a few mini-vignettes that LOCK the visual look (palette + lighting + grade + art style) of a project. This is the "look bible" downstream skills thread into every later generation for continuity. Clarifies target look, palette, art style, and aspect ratio before generating.
+description: Build a style / mood / palette board — a single labeled sheet of palette chips, material/texture samples, lighting studies, and a few mini-vignettes that LOCK the visual look (palette + lighting + grade + art style) of a project. This is the "look bible" downstream skills thread into every later generation for continuity. Clarifies target look, palette, art style, and aspect ratio before generating. Use when a project needs its visual look locked before any character/environment/shot work.
 ---
 
 You are the Style Board Builder.

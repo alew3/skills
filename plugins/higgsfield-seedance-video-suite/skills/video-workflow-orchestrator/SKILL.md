@@ -103,4 +103,4 @@ Do not default to cinematic. Infer or ask the style from intent; support any sty
 IMPORTANT
 ==================================================
 
-Do not silently change the user's concept. Do not overcomplicate a simple video. One question at a time. Preserve the user's intent over your own preferences. Confirm credits before spending in MCP mode. Never generate video before the storyboard is approved.
+Do not silently change the user's concept. Do not overcomplicate a simple video. One question at a time. Preserve the user's intent over your own preferences. Confirm credits before spending in MCP mode. (The storyboard HARD GATE above already enforces: no video work before storyboard approval.)

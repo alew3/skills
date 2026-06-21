@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "alew3-skills",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "alew3 skills — a marketplace of modular AI skill plugins for Claude Code. Each plugin bundles independently-callable skills plus an optional orchestrator.",
   "owner": {
     "name": "Alessandro Cauduro",
@@ -13,7 +13,7 @@
       "displayName": "Higgsfield + Seedance Video Suite",
       "description": "Full AI video + image workflow: briefing, image/character/prop/environment generation, character/prop/environment design sheets, style board, storyboard, Seedance 2 / Higgsfield video prompts, audio, passthrough validation, and final handoff. Drives the Higgsfield MCP or emits paste-ready prompts.",
       "source": "./plugins/higgsfield-seedance-video-suite",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "author": {
         "name": "Alessandro Cauduro",
         "email": "alessandro@cauduro.ai"
