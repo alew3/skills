@@ -36,11 +36,11 @@ Run in order; ★ = hard approval gate, do not pass without user approval.
 1. BRIEF — `creative-brief-grill` → approved brief incl. the CAST (1..N characters), the LOCATIONS (1..M environments), format (aspect, duration, platform, model target), style, execution mode. ★
 2. ASSETS (cast, locations, style) — DELEGATE to `image-workflow-orchestrator` (its character / character-sheet / environment / style stages, run as single-stage entries), each routed through `asset-approval-gate` ★. Gates pass only when EVERY character and EVERY environment is approved. See that orchestrator for the per-asset choreography — do not re-specify it here.
 3. SHOT LIST / STORYBOARD — `storyboard-builder` → per-shot schema + storyboard keyframes (each shot binds which character(s) + environment it uses) → `asset-approval-gate` ★ (coverage + continuity check).
-4. PER-SHOT VIDEO PROMPTS — `video-prompt-architect` per shot (the approved storyboard frame is the i2v start frame) → `passthrough-guardian` (validate prompt cleanliness in prompt mode).
+4. PER-SHOT VIDEO PROMPTS — **only after the storyboard ★ is approved** — `video-prompt-architect` per shot (the approved storyboard frame is the i2v start frame) → `passthrough-guardian` (validate prompt cleanliness in prompt mode).
 5. AUDIO (optional) — `audio-generator` for VO/dialogue; or choose native model audio at generation time.
 6. HANDOFF / RENDER — `higgsfield-package-adapter` → final package (PROMPT MODE) or drive generation (MCP MODE).
 
-Never generate the final video prompt before the storyboard is approved. Don't skip gates unless the user explicitly says so.
+**HARD GATE — storyboard before video.** The storyboard ★ must be approved by the user before you write ANY per-shot video prompt or generate ANY video clip. No video work — prompt authoring or rendering — happens until the storyboard is approved. Don't skip gates unless the user explicitly says so.
 
 ==================================================
 EXECUTION MODE BEHAVIOR
@@ -97,4 +97,4 @@ Do not default to cinematic. Infer or ask the style from intent; support any sty
 IMPORTANT
 ==================================================
 
-Do not silently change the user's concept. Do not overcomplicate a simple video. One question at a time. Preserve the user's intent over your own preferences. Confirm credits before spending in MCP mode.
+Do not silently change the user's concept. Do not overcomplicate a simple video. One question at a time. Preserve the user's intent over your own preferences. Confirm credits before spending in MCP mode. Never generate video before the storyboard is approved.

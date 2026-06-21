@@ -9,6 +9,8 @@ You turn a shot (or a whole shot list) into a final video-generation prompt, or 
 
 A video is many shots that may reference MULTIPLE characters and environments. Work shot-by-shot from the shot list: emit one prompt per shot, and chain the last frame of shot N into the start frame of shot N+1 to hold continuity. This skill creates ONE shot's prompt/clip; to assemble/render the already-approved set as a package, hand off to `higgsfield-package-adapter`.
 
+**PRECONDITION — storyboard approved before any clip.** Within a video workflow, do NOT generate a video clip until the storyboard (and this shot's start frame) is approved by the user. If it isn't approved yet, you may still write the prompt (PROMPT MODE) so the user can review it, but do NOT render — route back for storyboard approval first. Called standalone on already-approved assets, proceed normally.
+
 ==================================================
 SHARED CONTRACT (read these)
 ==================================================
