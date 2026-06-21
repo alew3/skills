@@ -12,13 +12,39 @@ You produce a location reference board: one authoritative wide **master** of the
 For a character's canonical look use `character-designer`; for turnaround/expression sheets use `character-sheet-builder`; for palette/material/mood boards alone use `style-board-builder`; for paneled shot sequences use `storyboard-builder`.
 
 ==================================================
-SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
+SHARED CONTRACT (docs are CANONICAL SOURCE but this skill is now SELF-CONTAINED — the rules it needs are inlined below. Read the docs only for extra depth and only if reachable; never block on them)
 ==================================================
 
 - Clarify + execution mode: `docs/DUAL_MODE.md`
 - How to write the prompt (esp. §6 Reference sheets, §7 cinematography): `docs/IMAGE_PROMPT_CONVENTIONS.md`
 - Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
 - Per-model strategy + which model: `docs/MODEL_PROMPTING.md`
+
+==================================================
+INLINED CONVENTIONS (self-contained — apply these directly; zero docs access required)
+==================================================
+
+PROMPT STRUCTURE (order): intended use → scene/setting → subject → key details → lighting → lens/optics → composition → style → explicit constraints. State the *intended use* ("location reference board") to set the model's mode and polish. Natural language wins — clear sentences or short labeled segments beat tag-soup; 1–3 sentences is often enough; use short labeled lines for complex scenes. Lighting is the single biggest quality lever after subject — always state light DIRECTION and quality ("soft daylight from camera-left"), never "good lighting." Don't default to "cinematic" — it's a no-op; specify the concrete lens/lighting/grade you mean.
+
+ENVIRONMENT REFERENCE-SHEET DISCIPLINE (the core method):
+- A single text-to-image gen WILL drift across views → use MASTER → DERIVE EACH VIEW (regenerate each angle/time-of-day from the approved master, referencing it via depth/edge structure — NOT one mega-prompt, and do NOT re-feed the raw master or it remixes). Grid-prompting is only the bootstrap to pick a master; per-view regeneration is the lock.
+- Establish the EMPTY location authoritatively first (wide master) — no characters, no action.
+- Then record a LOCATION BIBLE and derive reverse/medium/detail angles + time-of-day variants holding geometry and light DIRECTION fixed. Boards (palette/material/mood) last.
+
+LOCATION BIBLE CHECKLIST (the fixed verbatim block, reused word-for-word, same order, BEFORE scene text in every derived view):
+- ARCHITECTURAL ANCHORS: layout; key structures; materials; scale; signature fixtures/props. These are the identity-defining features that must never change.
+- LIGHTING LOGIC: source; direction; quality (soft/hard, diffuse/directional); color temperature; time-of-day. Shadow logic stays consistent across all views.
+For time-of-day variants, change ONLY color temperature / sun position / practicals — keep layout and shadow logic identical.
+
+CINEMATOGRAPHY VOCABULARY (for stills — light direction + lens feel + composition make a frame intentional, not flat): shot size (ECU→EWS), angle (low/high/eye-level/OTS/dutch), lens feel (24mm wide environmental / 35mm natural all-rounder / 50mm natural / 85mm portrait / telephoto compression), DoF/bokeh, composition (rule of thirds, leading lines, symmetry, foreground layering, negative space, headroom), lighting (key/fill/rim, golden/blue hour, low-key/high-key, practical, volumetric), grade/stock (teal-orange, desaturated, Kodak Portra, bleach bypass).
+
+PHOTOREAL ANTI-"AI-LOOK" (only when the location is photoreal — GPT Image 2 defaults to a clean, over-lit, retouched studio look; that polish IS the AI tell): frame as "a real photo captured in the moment." Add imperfection/texture: subtle film grain, sensor noise in shadows, slight chromatic aberration at edges, mild lens distortion, gentle vignetting, halation around highlights; slightly underexposed, natural muted grade. Ground with real photographic language: cite lens (35mm/24mm), film stock (Kodak Portra 400, Cinestill 800T for tungsten night), a single motivated key + direction + real contact shadows. Break the centered default: off-center, rule of thirds, imperfect/amateur framing. DROP cargo-cult tokens (8K/4K/ultra-detailed/hyper-detailed/masterpiece/award-winning — no realism gain) and don't lean on "photorealistic"/"ultra-realistic" alone; never mix contradictory looks.
+
+NEGATIVES (these models honor explicit exclusions stated as positive constraints far better than vague "avoid"): list the few things that ruin the shot — e.g. "no people, no new structures, no relocated openings, geometry identical, no text, no watermark." For photoreal add anti-slop guards: no plastic/waxy/poreless skin (if any figures), no 3D render/CGI, no oversaturated/HDR, no studio polish.
+
+IN-IMAGE TEXT (the annotated sheet is text-heavy): put literal copy in quotes or ALL CAPS, specify font style/placement, spell tricky words, and use a higher quality/resolution tier for small/dense text — GPT Image 2 renders text well and is the project standard for text-heavy sheets.
+
+MODEL: project standard is GPT Image 2 (`gpt_image_2`) for ALL images — handles text-heavy layouts, photoreal, and reference-based edits; honors explicit "no X" negatives; accepts up to ~16 reference images. Override only for a capability it lacks: trained reusable Soul identity (`soul_2`); transparency (generate on solid bg, then `remove_background`); 4K multilingual typography (`nano_banana_pro`); vector logos (`recraft-v4-1`). If the user names a model, that explicit choice always wins. Params: sizes max edge ≤3840, both edges ÷16, ratio ≤3:1; `quality: low|medium|high|auto`; no transparency; no seed (consistency comes from the master reference + verbatim bible, not luck).
 
 ==================================================
 DESIGN-SHEET DELIVERABLE (the look to produce)
@@ -58,7 +84,7 @@ PROMPT MODE → emit per-angle `SEND VERBATIM` blocks (master first, then each v
 
 MCP MODE → resolve model+params (`models_explore` recommend→get; default `gpt_image_2`), convert the master to a `media_id`/`job_id` for derived views (never a URL), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image` per view, poll `job_status`, then route each result to `asset-approval-gate`. Echo the exact `params`.
 
-The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
+The steps above are self-sufficient (rules inlined above); `docs/DUAL_MODE.md` (plugin root) is the canonical source for extra depth if reachable, but not required.
 
 ==================================================
 FIDELITY RULE

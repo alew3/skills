@@ -10,11 +10,49 @@ You assemble the final handoff package after the brief, visual assets, storyboar
 You do NOT brief, route, or gate — the orchestrators do that. You are the final, single packaging-and-render step for an already-approved set; you do not author a NEW asset (use `video-prompt-architect` / `image-generator` for that).
 
 ==================================================
-SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
+SHARED CONTRACT — INLINED (this skill is fully self-contained; executes correctly with ZERO docs access)
 ==================================================
 
-- Clarify + execution mode: `docs/DUAL_MODE.md`
-- Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
+The plugin-root docs are the CANONICAL SOURCE, but the full MCP lifecycle, media_id workflow, and enum-resolution are inlined below — this skill never needs to "resolve per docs/HIGGSFIELD_MCP_REFERENCE.md". Never block on docs being reachable.
+- Clarify + execution mode → CANONICAL: `docs/DUAL_MODE.md` (inlined here)
+- Models / params / media workflow → CANONICAL: `docs/HIGGSFIELD_MCP_REFERENCE.md` (inlined here)
+
+--- INLINED: enum resolution (the one rule) ---
+The `generate_image`/`generate_video`/`generate_audio` schemas are intentionally thin — open objects with only `model` hard-required. Models, allowed `aspect_ratio`/`duration`/`resolution`/`quality`, per-model media `roles`, and special fields (`soul_id`, `style_id`, `generate_audio`, etc.) are NOT in the schema; they live in the model catalog and are discovered at runtime:
+```
+models_explore(action:"recommend", query:"<goal in plain creative terms>", input:"text|image", type:"image|video|audio", limit:5)
+   → inspect match_reason/tags/parameters of top candidates
+models_explore(action:"get", model_id:"<chosen>")
+   → read EXACT params, enums, durations, aspect_ratios, medias[].roles BEFORE generate_*
+```
+Model-scoped params go at the top level of `params` (e.g. `params.resolution`, `params.quality`, `params.soul_id`). `recommend` over-weights intent keywords — strip "product/ad/marketing" unless you actually want Marketing Studio, and always validate the top hit. Don't invent enums. `duration` out-of-range silently clamps to the nearest allowed step; aspect ratios are per-model. Use the user's named model if they specified one (explicit choice overrides the project defaults images→`gpt_image_2`, video→`seedance_2_0`).
+
+--- INLINED: media_id workflow (never pass URLs) ---
+Any reference image/start frame/motion video/audio is passed inside `medias: [{ value, role }]`. **`value` must be a `media_id` (UUID) or a prior generation's `job_id` — never an `https://` URL** (sole exception: `reframe` accepts URLs for image refs).
+| You have… | Do this → result |
+|---|---|
+| Local file (Apps UI client) | `media_upload_widget(type:'image'/'video'/'audio')` → user picks → confirmed `media_id` |
+| Local file (byte upload) | `media_upload` → PUT bytes → `media_confirm` → `media_id` |
+| A web URL | `media_import_url({url})` → `media_id` |
+| A prior generated asset | reuse its `job_id` directly as `value` |
+Never ask the user to attach files in Claude chat — remote MCP tools cannot read those.
+
+--- INLINED: role mapping ---
+Map each approved asset to the target model's role (confirm exact roles per `models_explore get`):
+- Video roles: `start_image` (first frame), `end_image` (last frame), `image` (identity/style ref), `audio` (Seedance audio ref). Image role is `"image"` for all current image models.
+- **Elements (reusable char/prop/env refs) go inside the `prompt` as `<<<element_id>>>` — NEVER in `medias[]`.** Multiple Elements per prompt → multi-character. Soul (`params.soul_id`, `soul_2`/`soul_cinematic` only, one per gen) and Elements are mutually exclusive at generation time.
+
+--- INLINED: lifecycle & gotchas ---
+- **Preflight cost** with `get_cost:true` (supported on `generate_image`/`generate_video`/`generate_audio`/`reframe`; NOT `motion_control`/`upscale_video`); confirm credits before spending.
+- **Poll quietly:** `job_status(jobId, sync:true)` (blocks ~25s server-side) until terminal; respect `poll_after_seconds`; do not surface intermediate polls. Never call `job_display` mid-run (renders blank); call `job_display(id)` exactly once after completion. Video ≈ 60–180s, images ≈ 10–20s.
+- **Recovery:** if a `generate_*` returns a `recovery_tool`, call it immediately (don't explain/ask first). Lost results → `reveal_generation` / `show_generations`.
+- `generate_audio` is **speech/TTS only** (no music/SFX); pick voice via `list_voices` (exact `voice_id` + `voice_type`).
+- Never call `generate_*` to "test" — every real call costs credits. Use `get_cost:true` + read-only `models_explore` for exploration.
+
+--- INLINED: dual-mode + prompt-preview gate ---
+- **Clarify → choose mode → execute.** Batch open questions into ONE grouped message with a default each.
+- **PROMPT-PREVIEW APPROVAL GATE (MCP mode, mandatory, never skip):** before ANY `generate_*`, show the user the exact `prompt`/`text` param + resolved params (model, aspect_ratio, duration, quality/resolution, references) + the `get_cost:true` credit cost, and wait for explicit approval. Never spend credits on an unseen/unapproved prompt; revise and re-show on request.
+- After approval: generate → poll → route the rendered media through `asset-approval-gate` before downstream use → echo the exact `params` used.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -36,7 +74,7 @@ STEP 2 — EXECUTE (two branches)
 MANUAL / PROMPT BRANCH → produce the FINAL PACKAGE below (asset map + model target + SEND VERBATIM prompt + upload order + pre-gen checklist) for the user to run themselves, and stop. Optionally include ready-to-run MCP args outside the VERBATIM block.
 
 MCP BRANCH → actually run the approved package:
-1. RESOLVE the target model & exact params per `docs/HIGGSFIELD_MCP_REFERENCE.md` (`models_explore` get → confirm aspect_ratio / duration steps / quality|resolution / per-model media `roles`). Don't invent enums.
+1. RESOLVE the target model & exact params using the INLINED enum-resolution above (`models_explore` recommend→get → confirm aspect_ratio / duration steps / quality|resolution / per-model media `roles`). Don't invent enums.
 2. CONVERT every approved reference asset to a `media_id` — `media_upload_widget` (local) or `media_import_url` (web URL); reuse a prior generation's `job_id` directly. Never pass an `https://` URL in `medias[].value`.
 3. MAP each asset to its role for the target model: e.g. `start_image` / `end_image` / `image` (identity/style) / `audio`; Elements go inside the `prompt` as `<<<element_id>>>`, never in `medias[]`.
 4. PROMPT-PREVIEW APPROVAL GATE (mandatory — never skip): show the user the **exact prompt(s)** to be sent + the resolved params + the `get_cost:true` credit cost, and **get explicit approval before spending** — never run a `generate_*` on an unseen/unapproved prompt (4K / quality / count>1 / video especially). Revise and re-show if they want changes.
@@ -46,7 +84,7 @@ MCP BRANCH → actually run the approved package:
 8. ECHO the exact `params` you used for each call so the run is reproducible — this keeps MCP and manual branches interchangeable.
 9. CONCATENATE for runtime >15s: Seedance caps at 15s/clip, so a longer video arrives as the storyboard's ≤15s clip group. Render each clip (chaining the last frame of clip N into the start frame of clip N+1 for continuity), then assemble them in order into the full runtime. In PROMPT MODE, the package lists the clips in order with their durations and join points so the user stitches them. Never request a single Seedance clip >15s.
 
-The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
+The steps above are self-sufficient and fully inlined above; `docs/DUAL_MODE.md` / `docs/HIGGSFIELD_MCP_REFERENCE.md` (plugin root) are the CANONICAL SOURCE for deeper background but are NOT required.
 
 ==================================================
 ASSET MAP RULE (named / array — multi-character, multi-environment)

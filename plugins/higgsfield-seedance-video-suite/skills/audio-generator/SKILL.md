@@ -10,11 +10,38 @@ You produce spoken audio — a voiceover, narration, or character line — from 
 `generate_audio` is **SPEECH ONLY**. It cannot make music or sound effects — those models are game-pipeline-only. Politely DECLINE general music/SFX requests and suggest either a video model's native audio (Seedance / Veo / Cinema can generate synchronized sound at video time) or an external tool. Do the same for ambient beds and scores.
 
 ==================================================
-SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
+SHARED CONTRACT — INLINED (this skill is fully self-contained; works with ZERO docs access)
 ==================================================
 
-- Clarify + execution mode: `docs/DUAL_MODE.md`
-- Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md` (§5 audio, §6 lifecycle)
+The plugin-root docs are the CANONICAL SOURCE, but everything needed is inlined below — never block on docs being reachable.
+- Clarify + execution mode → CANONICAL: `docs/DUAL_MODE.md` (inlined here)
+- Models / params / media workflow → CANONICAL: `docs/HIGGSFIELD_MCP_REFERENCE.md` §5 audio / §6 lifecycle (inlined here)
+
+--- INLINED: dual-mode contract ---
+- **Clarify → choose mode → execute.** Never generate while a consequential param is unknown or intent is ambiguous. Batch all open questions into ONE grouped message with a sensible default each; for trivial params, state the assumption instead of asking.
+- **MCP MODE** — MCP available AND user wants the asset now → call the mapped tool, return real media. **PROMPT MODE** — no MCP, or user just wants the text → emit a `SEND VERBATIM` block and stop. If unclear, ask once: "Generate it now via Higgsfield, or just hand you the prompt to run yourself?"
+- **Prompt-preview approval gate (MCP mode, mandatory, never skip):** before ANY `generate_*`, show the user the exact `text`/`prompt` param + resolved params + the `get_cost:true` credit cost, and wait for explicit approval. Never spend credits on an unseen/unapproved prompt; revise and re-show on request.
+- After approval: generate, then route the rendered media through `asset-approval-gate` (approve/revise/reject) before downstream use. Echo the exact `params` used so the run is reproducible.
+
+--- INLINED: media_id workflow (never pass URLs) ---
+Any reference audio is passed inside `medias: [{ value, role }]`. `value` must be a `media_id` (UUID) or a prior generation's `job_id` — **never an `https://` URL**.
+| You have… | Do this → result |
+|---|---|
+| Local file (Apps UI client) | `media_upload_widget(type:'audio')` → user picks → confirmed `media_id` |
+| Local file (byte upload) | `media_upload` → PUT bytes → `media_confirm` → `media_id` |
+| A web URL | `media_import_url({url})` → `media_id` |
+| A prior generated asset | reuse its `job_id` directly as `value` |
+Never ask the user to attach files in Claude chat — remote MCP tools cannot read those.
+
+--- INLINED: enum resolution + lifecycle ---
+- The generate schemas are thin (`additionalProperties`, only `model` required). Discover models/params at runtime: `models_explore(action:"recommend", query:"<plain goal>", input:"text", type:"audio", limit:5)` → inspect candidates → `models_explore(action:"get", model_id:"<chosen>")` to read EXACT params/enums BEFORE generating. Don't invent enums. `recommend` over-weights intent keywords (strip "product/ad/marketing" unless you want Marketing Studio); always validate the top hit.
+- **Preflight cost** with `get_cost:true` (supported on `generate_audio`); confirm credits before spending.
+- **Poll quietly:** `job_status(jobId, sync:true)` (blocks ~25s server-side) until terminal; respect `poll_after_seconds`; do not surface intermediate polls. Never call `job_display` mid-run (renders blank); call `job_display(id)` exactly once after completion to show the final asset.
+- **Recovery:** if a `generate_*` returns a `recovery_tool`, call it immediately (don't explain/ask first). Lost results → `reveal_generation` / `show_generations`.
+- Never call `generate_*` to "test" — every real call costs credits.
+
+--- INLINED: audio model rules (§5) ---
+`generate_audio` is **SPEECH/TTS ONLY** — it cannot make music or SFX (those models are game-pipeline-only). Pick the voice via `list_voices`, passing the exact `voice_id` + `voice_type` (`"preset"` discovered via `list_voices`, or `"element"` for a cloned voice from ~3s of reference audio).
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -39,9 +66,9 @@ STEP 2 — EXECUTE (dual mode)
 
 PROMPT MODE → emit the script as the `SEND VERBATIM` block (only the literal spoken text) and put model/voice/delivery notes in VOICE SPEC outside it. Optionally include ready-to-run MCP args.
 
-MCP MODE → resolve model+voice (`models_explore` recommend→get for the TTS model; `list_voices` for `voice_id`+`voice_type`), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_audio`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
+MCP MODE → resolve model+voice (`models_explore` recommend→get for the TTS model; `list_voices` for `voice_id`+`voice_type`), convert any reference audio to a `media_id` first (never a URL), show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_audio`, poll `job_status(jobId, sync:true)` until terminal, `job_display(id)` once after completion, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
-The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
+The steps above are self-sufficient and fully inlined above; `docs/DUAL_MODE.md` / `docs/HIGGSFIELD_MCP_REFERENCE.md` (plugin root) are the CANONICAL SOURCE for deeper background but are NOT required.
 
 ==================================================
 MODEL QUICK-PICK (verify live with `models_explore`)

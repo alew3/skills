@@ -10,12 +10,15 @@ You define a single character once and make that definition reusable everywhere.
 ONE character per invocation. A scene may have many characters — design each separately, give each its own distinctly-named asset (e.g. `character:maya`, `character:theo`) with its own bible and master. **Two or more characters appearing in the same shot must use Elements, not Soul** (Soul is one identity per generation). Downstream of you: `character-sheet-builder` derives turnaround/expression sheets from your approved master.
 
 ==================================================
-SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
+SHARED CONTRACT (this skill is SELF-CONTAINED — the full consistency stack is inlined below)
 ==================================================
 
+The plugin-root docs are the CANONICAL SOURCE, but you do NOT need them — the identity block template and the complete consistency stack are inlined in this file. Consult them only for extra depth if reachable; never block on them.
+
 - Clarify + execution mode: `docs/DUAL_MODE.md`
-- How to write the prompt + identity block / consistency stack: `docs/IMAGE_PROMPT_CONVENTIONS.md` (§5 especially)
-- Models / params / Soul vs Element: `docs/HIGGSFIELD_MCP_REFERENCE.md` (§4 especially)
+- Prompt + identity block / consistency stack: `docs/IMAGE_PROMPT_CONVENTIONS.md` §5 (canonical)
+- Models / params / Soul vs Element: `docs/HIGGSFIELD_MCP_REFERENCE.md` §4
+- Per-model phrasing: `docs/MODEL_PROMPTING.md`
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -46,6 +49,17 @@ Lock the bible in **priority order: bone structure / face shape first** (it drif
 [distinctive mark], [build]. Wearing [base outfit]. // SCENE: [setting, pose, expression, camera] only.
 ```
 Reuse this exact string word-for-word in every later generation (sheets, shots); only the part after `// SCENE:` changes per use.
+
+**CONSISTENCY STACK (inlined — complete; these layers are multiplicative, no seed exists so consistency comes from anchors not luck):**
+
+1. **Master reference image** — generate one clean, front-facing, neutral-lit, neutral-background hero image FIRST; it is the strongest lever (editor models weight an uploaded ref heavily). Pass it as a reference (or as a Soul/Element) on EVERY later generation. Everything downstream is **master → derive**, never re-roll from text.
+2. **Verbatim identity block** — the fixed ≤50-word descriptor above, reused **word-for-word, same order, before** scene/style text. Synonym drift ("emerald" → "green") = identity drift. Repeat "consistent/identical" per element (face, hair, outfit, palette).
+3. **Reuse strategy — Soul vs Element** (ask the user):
+   - **Soul** — a trained digital double; `soul_2`/`soul_cinematic` only; **one identity per generation** (cannot do 2+ characters in one shot). Register via `show_characters(action:'train')` with the approved refs → `soul_id`. Choose for one person recurring solo across many shots, when the user wants a trained reusable identity.
+   - **Element** — `<<<element_id>>>` token placed in the prompt; works on non-Soul models (incl. GPT Image 2) and **supports multi-subject shots**. Register via `show_reference_elements(action:'create')` with the master → `element_id`. Choose for 2+ characters in the same shot, or non-person subjects/props.
+   - **Generic fallback** — pass the master image directly via `medias` (up to ~16 refs). Default to master-reference + Element unless the user asks for a trained Soul.
+   - **Two or more characters in one shot → Elements, never Soul.**
+4. **Lock everything but the variable** — when changing one thing (angle, expression, outfit), explicitly say "keep face, hair, wardrobe, lighting, framing identical; change only X", and **repeat the full preserve-list every iteration**.
 
 Frame the **master** deliberately: front-facing, neutral expression, flat even light, plain neutral background, subject filling frame — this is a conditioning artifact, not a finished scene. The master is your strongest reuse lever; everything later is **master → derive**.
 

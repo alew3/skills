@@ -10,22 +10,28 @@ You take an approved brief and approved assets (character master(s), prop sheet(
 A storyboard is a **conditioning artifact**: rough, readable, faithful to the approved cast and locations. Each shot names which approved assets it uses, so the downstream video stage can thread identity and geometry forward without drift.
 
 ==================================================
-SHARED CONTRACT (optional deeper reference — this skill is self-contained; the docs below add depth but are NOT bundled into the skill context, so read them only if reachable and never block on them)
+SHARED CONTRACT (this skill is SELF-CONTAINED — no doc reads needed)
 ==================================================
 
-- Clarify + execution mode: `docs/DUAL_MODE.md`
-- Storyboard frames are images: `docs/IMAGE_PROMPT_CONVENTIONS.md`
-- Camera/shot vocabulary, motion, and continuity (180°, eyeline, identity-in-start-frame): `docs/VIDEO_PROMPT_CONVENTIONS.md`
-- Models / params / media workflow: `docs/HIGGSFIELD_MCP_REFERENCE.md`
-- Per-model strategy + which model: `docs/MODEL_PROMPTING.md`
+Every convention this skill needs is inlined below (see "INLINED CONVENTIONS"). The plugin-root docs are the CANONICAL SOURCE but are NOT required and NOT bundled into context — do not block on them, do not read them to produce output:
+- `docs/IMAGE_PROMPT_CONVENTIONS.md` — storyboard frames are images; reference-sheet discipline (mirrored below)
+- `docs/VIDEO_PROMPT_CONVENTIONS.md` — camera/shot vocabulary, motion, continuity 180°/eyeline (mirrored below)
+- `docs/MODEL_PROMPTING.md` — model selection (GPT Image 2 for the sheet); mirrored below
+- `docs/DUAL_MODE.md` / `docs/HIGGSFIELD_MCP_REFERENCE.md` — clarify+execution / params+media (key rules mirrored in STEP 2)
 
 ==================================================
 DESIGN-SHEET DELIVERABLE (the storyboard sheet look)
 ==================================================
 
-Beyond the shot list, the storyboard image is a single polished landscape STORYBOARD SHEET — see `templates/storyboard-template.md`. Layout: a TITLE BAR ("STORYBOARD – <title>" + OBJECTIVE); a grid of NUMBERED, TITLED panels, each with a 2–3 line caption beneath; and a BOTTOM BAR (VISUAL STYLE & TONE · COLOR PALETTE swatches · CAMERA NOTES · KEY ELEMENTS). The SAME character(s) + environment + grade across every panel.
+Beyond the shot list, the storyboard image is a single polished landscape STORYBOARD SHEET. Layout (inlined from the template — no doc read needed):
+- TITLE BAR: `"STORYBOARD – <TITLE>"` + `"OBJECTIVE: <...>"`.
+- PANEL GRID: N numbered panels (e.g. 12 in a 4×3 grid). Each = number + short title (e.g. "1. INTRO – THE STAGE IS SET") + a cinematic image of the beat + a 2–3 line caption beneath.
+- BOTTOM BAR: VISUAL STYLE & TONE (text) · COLOR PALETTE (swatches) · CAMERA NOTES (text) · KEY ELEMENTS (bullets) · optional logo.
+- The SAME character(s) + environment + grade across EVERY panel.
 
-The sheet is TEXT-HEAVY (title, panel titles, captions, bar labels); use the project-standard **GPT Image 2** (`docs/MODEL_PROMPTING.md`); page aspect 16:9.
+The sheet is TEXT-HEAVY (title, panel titles, captions, bar labels); use the project-standard **GPT Image 2** (`gpt_image_2`); page aspect **16:9** (or 3:2). An explicit user-specified model overrides the default.
+
+EXAMPLE storyboard-page SEND VERBATIM prompt: *A professional storyboard sheet, landscape, dark editorial layout. TITLE: "STORYBOARD – ALE BASKETBALL DUNK CONTEST FINALS", subtitle "OBJECTIVE: SCORE A 50 TO WIN". A 4x3 grid of 12 numbered cinematic panels, each with a short title and a 2-3 line caption beneath — 1 INTRO wide arena, 2 backstage close-up, … 12 the champion lifting a trophy. The SAME player (black jersey number 24) and the SAME indoor arena across all panels, cinematic high-contrast dramatic lighting. BOTTOM BAR: "VISUAL STYLE & TONE: cinematic, high contrast, realistic, high energy", a COLOR PALETTE swatch strip, "CAMERA NOTES: wide + tracking shots, slow-motion dunk, tight close-ups", "KEY ELEMENTS: pressure, focus, athleticism, crowd energy, victory". Legible captions, consistent identity across panels, no warped text.* NEGATIVE: inconsistent character or arena between panels, unreadable captions, single-poster composition.
 
 ==================================================
 STEP 1 — CLARIFY (never guess consequential params)
@@ -60,8 +66,6 @@ PROMPT MODE → emit the `SEND VERBATIM` block for the storyboard page (a labele
 
 MCP MODE → resolve model+params (`models_explore` recommend→get), convert each approved master to a `media_id` (never a URL) and reference it, show the user the exact final prompt + resolved params + the `get_cost:true` credit cost and get explicit approval before generating (validate before spending credits), `generate_image`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
-The steps above are self-sufficient; `docs/DUAL_MODE.md` (plugin root) is optional deeper background if reachable.
-
 PER-SHOT SCHEMA (fill one row/block per shot — this is the handoff to video-prompt-architect):
 
 ```text
@@ -85,7 +89,34 @@ Preserve the brief's beats and the approved assets. Do not invent new characters
 MULTI-INSTANCE
 ==================================================
 
-Shots may reference MULTIPLE approved characters and MULTIPLE approved environments. List every asset each shot uses in its REFERENCES field. For a panel/shot with 2+ characters, plan it as an **Element** composition (`<<<element_id>>>` per character in the prompt, non-Soul model) — Soul is one-identity-per-gen. Restate L-R screen positions for every multi-character shot so the 180° line holds across the sequence (see `docs/VIDEO_PROMPT_CONVENTIONS.md` §7).
+Shots may reference MULTIPLE approved characters and MULTIPLE approved environments. List every asset each shot uses in its REFERENCES field. For a panel/shot with 2+ characters, plan it as an **Element** composition (`<<<element_id>>>` per character in the prompt, non-Soul model) — Soul is one-identity-per-gen. Restate L-R screen positions for every multi-character shot so the 180° line holds across the sequence (see CONTINUITY in INLINED CONVENTIONS below).
+
+==================================================
+INLINED CONVENTIONS (self-contained — relevant rules from IMAGE_PROMPT_CONVENTIONS.md, VIDEO_PROMPT_CONVENTIONS.md, MODEL_PROMPTING.md)
+==================================================
+
+--- MODEL ---
+- Storyboard SHEET (text-heavy) → **GPT Image 2** (`gpt_image_2`), project standard; renders dense text/captions well, accepts up to ~16 reference images, honors explicit "no X" negatives. An explicit user-specified model overrides. The downstream VIDEO model the panels frame for is **Seedance 2** (`seedance_2_0`) by default (steps 4/5/6/8/10/12/15s, 15s cap).
+
+--- REFERENCE-SHEET DISCIPLINE (a storyboard is a CONDITIONING ARTIFACT, not art for humans) ---
+- A single text-to-image gen WILL drift across panels. To hold identity, prefer **master → derive**: reference the approved character/environment MASTER image(s) on the gen (pass via `medias` / Element), don't rely on text alone. Grid-prompting one sheet is fine to BOOTSTRAP a layout, but identity comes from the referenced masters, not luck (there is no seed).
+- **Verbatim identity anchor:** reuse the EXACT identity noun phrase / descriptor word-for-word across all panels; synonym drift ("emerald"→"green") = identity drift. Repeat "consistent/identical" per element (face, hair, outfit, palette).
+- **Lock everything but the variable:** each panel changes ONE beat (action/angle); keep face, wardrobe, palette, grade, location, and light DIRECTION identical across panels.
+- **Establish the location once** (the approved environment master), don't regenerate a fresh background behind the character each panel; never let light direction flip between continuity panels.
+- Captions are LABELS FOR HUMANS — short, legible, faithful; the only text that belongs inside the gen prompt is literal copy to render (title, panel titles, captions). Put hard/literal copy in quotes or ALL CAPS; use a higher quality/resolution tier for small/dense text.
+- Negative guards (positive-framed exclusions): `no inconsistent character or environment between panels, no extra characters, no finished rendering if rough, no text outside captions, no unreadable captions, no single-poster composition`.
+
+--- CAMERA / SHOT VOCABULARY (for the CAMERA MOVE + SHOT SIZE fields) ---
+- Shot sizes: `extreme close-up → close-up → medium → full → wide → establishing`. Angles: `low / high / eye-level / OTS / POV / dutch`.
+- ONE primary camera move per shot (never chain). Approach `push in / dolly in` (not "zoom"); retreat `pull back / dolly out`; lateral `truck left/right`, `pan following subject`; vertical `tilt up` (pivot) vs `pedestal up` (travel); `tracking shot`; `orbit / arc`; `crane up`; aerial `drone / FPV`. Add `gimbal/stabilized` (fluid) or `handheld, slight shake` (energy); or `locked` (no move). State direction + speed + what it reveals.
+- LIGHTING is the biggest quality lever — state direction + quality, never "good/cinematic lighting".
+
+--- CONTINUITY ACROSS SHOTS (models have NO persistent 3D world memory — enforce in the plan) ---
+- **180° rule / screen direction:** restate placement EVERY shot ("Leo on left, Maya on right"); the line must hold across the sequence.
+- **Eyeline match:** state gaze direction ("gaze ~10° off-camera toward the other character"); FLIP it in reverse shots so glances meet.
+- **Identity in the start frame:** the downstream video stage threads identity by chaining best last frame of shot N → start frame of shot N+1; the storyboard's job is to make each shot's references + screen positions explicit so that chain holds.
+- **Carry the same** lighting descriptor, lens, palette, grade, and aspect ratio across the sequence; one outfit-anchor per wardrobe.
+- 15s CLIP GROUPING for runtime >15s: see STEP 2 above.
 
 ==================================================
 OUTPUT FORMAT
