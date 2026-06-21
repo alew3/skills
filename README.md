@@ -156,6 +156,7 @@ Specialist skills (all independently callable):
 - `character-sheet-builder`
 - `environment-sheet-builder`
 - `style-board-builder`
+- `prop-sheet-builder`
 - `storyboard-builder`
 - `video-prompt-architect`
 - `audio-generator`

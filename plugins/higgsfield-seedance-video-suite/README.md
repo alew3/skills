@@ -25,6 +25,7 @@ Skills **ask for any missing parameter** (format, aspect ratio, duration, model,
 | `character-sheet-builder` | Turnaround / expression / pose sheet via master→derive |
 | `environment-sheet-builder` | Location board: empty master + location bible + angles + time-of-day |
 | `style-board-builder` | Style/mood/palette board = continuity constraints |
+| `prop-sheet-builder` | Prop/object design sheet: multi-angle views, callouts, scale, variants, palette |
 | `storyboard-builder` | Shot list + storyboard frames binding cast/locations per shot |
 | `video-prompt-architect` | Final video prompt (Seedance/Kling/Veo/Cinema); t2v / i2v / multi-shot |
 | `audio-generator` | Speech/voiceover via generate_audio (TTS only) |

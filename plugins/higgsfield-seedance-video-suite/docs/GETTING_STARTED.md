@@ -54,6 +54,7 @@ A project can have **multiple characters and multiple environments** — design 
 - **A character:** `character-designer` → produces the master + reusable identity block + Soul/Element plan.
 - **A turnaround sheet:** `character-sheet-builder` (give it the approved master) → per-view prompts derived from the master.
 - **An environment board:** `environment-sheet-builder` → master + angles + location bible.
+- **A prop/object sheet:** `prop-sheet-builder` → hero render + multi-angle views + callouts + scale + variants, reusable as an Element.
 - **A single video shot:** `video-prompt-architect` → "slow push-in on Maya as she reads a note, rainy office, 6s, 16:9". It confirms duration/aspect/start-frame, then emits the video prompt or generates it.
 - **Voiceover:** `audio-generator` → script + voice, via `generate_audio`.
 

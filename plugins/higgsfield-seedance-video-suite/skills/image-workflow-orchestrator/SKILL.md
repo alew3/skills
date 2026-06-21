@@ -63,6 +63,7 @@ MODE DETECTION (single-stage entry)
 - A character's look → `character-designer`; its sheet → `character-sheet-builder`.
 - A location board → `environment-sheet-builder`.
 - A style/mood board → `style-board-builder`.
+- A prop/object sheet → `prop-sheet-builder`.
 - A storyboard → `storyboard-builder`.
 - Need video next → hand off to `video-workflow-orchestrator` (this image set becomes its locked assets).
 
