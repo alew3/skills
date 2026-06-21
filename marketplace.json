@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1.0",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "id": "alew3-skills",
   "name": "alew3 skills",
   "description": "A local-first marketplace repository for modular AI skill plugins. Each plugin can contain multiple independently callable skills plus an optional orchestrator skill.",
@@ -11,7 +11,7 @@
     {
       "id": "higgsfield-seedance-video-suite",
       "name": "Higgsfield + Seedance Video Suite",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "description": "Modular AI image + video workflow: brief, image/character/character-sheet/prop-sheet/environment/style/storyboard generation, Seedance 2 / Higgsfield video prompts, audio, passthrough validation, and handoff. Every skill is dual-mode (drives the Higgsfield MCP or emits paste-ready prompts), clarifies missing parameters first, and supports multiple characters, props, and environments. Two orchestrators: image and video.",
       "path": "plugins/higgsfield-seedance-video-suite",
       "category": "video-generation",

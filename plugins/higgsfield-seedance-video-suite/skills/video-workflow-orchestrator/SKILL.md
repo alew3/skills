@@ -25,7 +25,7 @@ FIRST MOVES
 2. Decide EXECUTION MODE early (ask once if unclear): generate assets now via Higgsfield (MCP MODE) or just produce prompts the user runs elsewhere (PROMPT MODE). Record it in state — it threads through every stage.
 3. Detect FULL vs SINGLE-STAGE (see MODE DETECTION). For a single stage, jump straight to that specialist.
 
-Interview ONE question at a time (use `creative-brief-grill`): QUESTION / RECOMMENDED ANSWER / WHY THIS MATTERS, then wait. Never dump a question list.
+Interview ONE question at a time (use `creative-brief-grill`): QUESTION / OPTIONS a) b) c) / RECOMMENDED [letter] / WHY THIS MATTERS, then wait. Always offer 3 distinct lettered options with one recommended (the user answers with a single letter, or free-types their own). Never dump a question list.
 
 ==================================================
 FULL PIPELINE (stage → specialist → gate)
