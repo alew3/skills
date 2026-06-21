@@ -2,7 +2,7 @@
 
 A modular skill pack for building AI **images and video** — from a rough idea to a finished render or a clean, paste-ready prompt package. Built around the **Higgsfield MCP** (Seedance 2, Kling 3, Veo, Cinema Studio, Soul, Nano Banana, GPT Image 2…), but every skill also works **without** the MCP by emitting prompts you run anywhere.
 
-New in 0.2.0: **dual-mode** (MCP **or** prompt) in every skill, a **clarify-before-generate** gate, **two orchestrators** (image + video), per-deliverable skills (character / character-sheet / environment / style / storyboard / audio), and first-class support for **multiple characters and multiple environments**.
+New in 0.2.0: **dual-mode** (MCP **or** prompt) in every skill, a **clarify-before-generate** gate, **two orchestrators** (image + video), per-deliverable skills (character / character-sheet / prop-sheet / environment / style / storyboard / audio), and first-class support for **multiple characters, props, and environments**.
 
 → **Start here:** [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md) — worked examples for both workflows and for individual skills.
 

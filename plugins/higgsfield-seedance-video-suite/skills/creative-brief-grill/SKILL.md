@@ -72,7 +72,7 @@ C. ELEMENTS
 - KEY PROPS — objects that must appear or stay consistent.
 
 D. VIDEO SPECIFICS
-- DURATION and rough NUMBER OF SHOTS (and storyboard panel count if relevant).
+- DURATION and rough NUMBER OF SHOTS (and storyboard panel count if relevant). **Seedance 2 clips cap at 15s each — if the total runtime exceeds 15s, plan it as multiple clips: clip count ≈ ceil(total ÷ 15s). Record the intended clip grouping in the brief so the storyboard and handoff render within the cap.**
 - PACING — fast cuts vs long takes; where the slow-motion / hero moments are.
 - AUDIO — dialogue / voiceover / music / SFX / native or separate.
 

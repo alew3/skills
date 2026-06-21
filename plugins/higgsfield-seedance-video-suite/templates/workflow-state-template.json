@@ -30,6 +30,16 @@
       "status": "planned"
     }
   },
+  "props": {
+    "_example_id": {
+      "bible": "",
+      "reuse_strategy": "element",
+      "element_id": null,
+      "sheet": [],
+      "master": null,
+      "status": "planned"
+    }
+  },
   "environments": {
     "_example_id": {
       "bible": "",
@@ -48,6 +58,7 @@
       "camera_angle": "eye-level",
       "camera_move": "static",
       "subjects": [],
+      "props": [],
       "action": "",
       "location": "",
       "dialogue_sfx": "",
@@ -65,6 +76,7 @@
     "style_frames": "not_started",
     "character_bibles": "not_started",
     "character_sheets": "not_started",
+    "prop_sheets": "not_started",
     "environment_sheets": "not_started",
     "shot_list": "not_started",
     "storyboard": "not_started",

@@ -36,12 +36,30 @@ Never chain push-in→pan→orbit in one shot — pick **one** move and state di
 - Follow: `tracking shot`. Rotate: `orbit clockwise / arc`. Epic: `crane up, sweeping`. Aerial: `drone descent / FPV sweep`.
 - Shot sizes: `extreme close-up → close-up → medium → full → wide → establishing`. Angles: `low / high / eye-level / OTS / POV / dutch`.
 
+## 3a. Avoiding the "AI-video" look (anti-slop)
+
+AI video gives itself away through **motion and consistency**, not resolution. The tells: morphing/warping (hands, hair, edges, text), identity/face drift, temporal flicker (shadows and textures "crawling"), the floaty slow-motion-everything glide, plastic skin in motion, melting background characters, and the over-stabilized frictionless camera. Counter them in the **positive** prompt first; negatives are a backstop.
+
+**Give motion weight and real-time speed** (defeats the float): `realistic inertia and weight, natural real-time speed, no unintended slow motion`; concrete physics cues — `heavy footsteps with ground impact`, `hand presses into the cushion`, `fabric and hair sway naturally with movement`.
+
+**Add micro-life without giving room to morph:** `natural blinks, subtle breathing, small weight shifts, subtle natural movement only`. This signals life while keeping motion small enough to stay stable.
+
+**Real camera operation beats the glide:** `natural handheld movement with slight micro-shake, imperfect framing, documentary feel`, or a named controlled rig (`slow gimbal glide`, `steadicam float`, `locked-off tripod`). Still **one motivated move per shot**.
+
+**Filmic capture breaks the digital over-cleanness:** `shot on 35mm film, subtle grain, slight halation`, `24fps with natural motion blur on movement`, `subtle lens imperfections, slight chromatic aberration`. A single **motivated practical light, consistent throughout** is also the #1 flicker preventer — name one source + direction and hold it.
+
+**Authenticity cues:** `lived-in environment, worn surfaces`, ambient secondary motion kept small (`drifting dust, faint steam, distant traffic`), `candid, unposed performance`. Avoid busy repeating patterns (plaid/stripes) — they trigger texture crawl.
+
+**Seedance separation-of-concerns** (its superpower — don't blend roles into one prose blob): assign identity to the start image, motion to a reference clip, pacing to audio, in *separate tagged* references — e.g. *"@Image1 identity anchor — do not alter facial proportions, eye shape, or hairstyle; follow @Video1's handheld camera; match rhythm to @Audio1."* Extract a clean frame from a good generation and reuse it as the identity anchor across clips.
+
+**Iterate short to verify stability:** test at 3–5s (face/lighting/motion hold?) before scaling; 8–10s is the coherence sweet spot, drift rises past ~10s, 15s hard cap. ⚠️ Generic negatives (`bad quality, ugly`) are near-placebo — name the *specific* artifact and pair it with a positive lock (`stable facial features, consistent texture and lighting`).
+
 ## 4. Image-to-video (i2v)
 
 When starting from an approved still (the production path for character work):
 - **Identity lives in the start frame; the prompt describes only what *changes*** — action, camera, mood, timing. Don't re-describe the whole scene.
 - **Restate identity anchors** that must persist (hair color, specific garment, position) so they don't drift, and **replicate the established framing/composition** rather than reimagining it.
-- Helpful negatives: `avoid identity drift, avoid temporal flicker`.
+- Helpful negatives (name the specific artifact, pair with a positive lock): `avoid morphing, identity/face drift, temporal flicker, texture crawling, plastic waxy skin, extra/deformed fingers, melting background, unintended slow motion` + `keep facial proportions, texture, and lighting consistent across frames`.
 - Pass the still via `medias:[{role:"start_image", value:"<media_id-or-job_id>"}]` (see MCP reference).
 
 ## 5. Format, duration, audio (always confirm — DUAL_MODE clarify)

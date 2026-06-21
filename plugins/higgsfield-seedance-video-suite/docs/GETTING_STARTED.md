@@ -12,7 +12,7 @@ If you don't say which you want, the skill asks once. See `docs/DUAL_MODE.md`.
 ## The two orchestrators + the specialists
 
 - `image-workflow-orchestrator` — idea → a coherent **image set** (style board, characters, character sheets, environment sheets, hero images).
-- `video-workflow-orchestrator` — idea → a finished/specified **video** (brief → cast & locations → style → storyboard/shot list → per-shot video prompts → audio → handoff). It can pull the image workflow in to build assets first.
+- `video-workflow-orchestrator` — idea → a finished/specified **video** (brief → style *(optional)* → character / prop / environment design sheets *(always built — reusable Soul/Element assets for future videos)* → storyboard sheet → per-shot video prompts → audio → handoff). It can pull the image workflow in to build assets first.
 
 You can also call any specialist on its own: `image-generator`, `character-designer`, `character-sheet-builder`, `environment-sheet-builder`, `style-board-builder`, `storyboard-builder`, `video-prompt-architect`, `audio-generator`, `creative-brief-grill`, `asset-approval-gate`, `passthrough-guardian`, `higgsfield-package-adapter`.
 
@@ -26,14 +26,15 @@ A project can have **multiple characters and multiple environments** — design 
 
 1. **Brief** — `video-workflow-orchestrator` starts `creative-brief-grill`, asking one question at a time, and captures: format **9:16, ~15s, 3 shots**, look **neo-noir**, **cast = [maya]**, **environments = [alley, rooftop]**, and **execution mode**. → you approve the brief. ★
 2. **Character** — `character-designer` locks Maya's master + identity block + reuse strategy (one person across solo shots → **Soul**). → approve. ★ Then `character-sheet-builder` derives a turnaround. → approve. ★
-3. **Environments** — `environment-sheet-builder` builds `alley`, then `rooftop` (each: empty master + location bible + angles). → approve each. ★
-4. **Style** — `style-board-builder` locks palette/grade/lighting. → approve. ★
-5. **Storyboard / shot list** — `storyboard-builder` produces the per-shot rows + one keyframe per shot (each shot binds maya + its location). → approve. ★
-6. **Per-shot video prompts** — `video-prompt-architect` writes one prompt per shot, using each approved keyframe as the **image-to-video start frame**, and chains shot N's last frame into shot N+1 for continuity. `passthrough-guardian` checks each prompt.
-7. **Audio** (optional) — `audio-generator` for Maya's VO line, or native model audio.
-8. **Handoff / render** — `higgsfield-package-adapter` gives you the full package (PROMPT MODE) or renders the shots (MCP MODE, with a P1 look-test before the rest).
+3. **Prop sheets** — `prop-sheet-builder`, once per hero prop (e.g. the clue/photo Maya finds) → approve. ★ Each prop sheet becomes a reusable **Element** you can drop into future videos.
+4. **Environments** — `environment-sheet-builder` builds `alley`, then `rooftop` (each: empty master + location bible + angles). → approve each. ★
+5. **Style** *(optional)* — `style-board-builder` locks palette/grade/lighting. → approve. ★
+6. **Storyboard sheet** — `storyboard-builder` produces the per-shot rows + one keyframe per shot (each shot binds maya + any prop(s) + its location). → approve. ★
+7. **Per-shot video prompts** — `video-prompt-architect` writes one prompt per shot, using each approved keyframe as the **image-to-video start frame**, and chains shot N's last frame into shot N+1 for continuity. `passthrough-guardian` checks each prompt.
+8. **Audio** (optional) — `audio-generator` for Maya's VO line, or native model audio.
+9. **Handoff / render** — `higgsfield-package-adapter` gives you the full package (PROMPT MODE) or renders the shots (MCP MODE, with a P1 look-test before the rest).
 
-**Just want the prompts?** Say "prompt mode" and step 6 hands you three `SEND VERBATIM` blocks (one per shot) you can paste into Seedance.
+**Just want the prompts?** Say "prompt mode" and step 7 hands you three `SEND VERBATIM` blocks (one per shot) you can paste into Seedance.
 
 ## Example B — Image workflow (from scratch)
 

@@ -44,6 +44,7 @@ MCP BRANCH → actually run the approved package:
 6. POLL `job_status` until terminal (respect `poll_after_seconds`); if a call returns a `recovery_tool`, call it immediately.
 7. ROUTE the rendered media through `asset-approval-gate` (approve / revise / reject) before it's used downstream.
 8. ECHO the exact `params` you used for each call so the run is reproducible — this keeps MCP and manual branches interchangeable.
+9. CONCATENATE for runtime >15s: Seedance caps at 15s/clip, so a longer video arrives as the storyboard's ≤15s clip group. Render each clip (chaining the last frame of clip N into the start frame of clip N+1 for continuity), then assemble them in order into the full runtime. In PROMPT MODE, the package lists the clips in order with their durations and join points so the user stitches them. Never request a single Seedance clip >15s.
 
 Full rules for both branches: `docs/DUAL_MODE.md`.
 

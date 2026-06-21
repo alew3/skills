@@ -19,16 +19,35 @@ Recommended order: **intended use → scene/setting → subject → key details 
 - **Lighting is the single biggest quality lever** after subject. Always state light **direction** and quality ("soft daylight from camera-left, gentle catchlights"), never just "good lighting".
 - **Don't default to "cinematic."** It's a no-op. Specify the concrete look (lens, lighting, grade) you actually mean.
 
-## 2. Photorealism, style & text
+## 2. Photorealism & avoiding the "AI look"
 
-- Photoreal: put "photorealistic" / "professional photography" in the prompt. You may cite a lens *feel* ("85mm portrait look", "shallow depth of field") for high-level intent, but **don't trust exact camera/lens specs as literal simulation** — they're interpreted loosely.
-- Add **subtle film grain** to break plastic AI smoothness on photoreal stills.
-- **In-image text:** put literal copy in quotes or ALL CAPS, specify font style/placement, spell tricky words, and use a higher quality/resolution tier for small/dense text. Nano Banana Pro / GPT Image 2 render text best.
-- Vector/logo work → Recraft (`model_type:vector`).
+GPT Image 2 **defaults to a clean, over-lit, retouched studio aesthetic** — that polish IS the "AI slop" tell. The fix is not the word "photorealistic" (near-placebo on its own); it's framing the shot as a *real photo captured in the moment* and adding back the texture, imperfection, and physically-plausible lighting that real capture has. Concrete camera / lighting / composition language steers realism far more reliably than quality adjectives.
+
+**Frame it as a candid capture.** Lead with intent like *"a real photo captured in the moment, unposed, subject unaware of the camera"* rather than "ultra-realistic". Use real specifics (place, era, time of day) — the model's world knowledge auto-loads grounded detail.
+
+**Add imperfection & texture (highest-impact lever):**
+- Skin: `visible skin pores and fine texture, subtle oiliness, faint blemishes/freckles, asymmetrical features, flyaway hairs` (kills the #1 tell — waxy/poreless skin and too-perfect symmetry).
+- Optics/sensor: `subtle film grain, sensor noise in the shadows, slight chromatic aberration at the edges, mild lens distortion, gentle vignetting, halation around highlights`.
+- Exposure/color: `slightly underexposed, natural muted color grading, slight warm cast` (counters the over-saturated HDR look).
+
+**Ground it with real photographic language:**
+- Lens/body: `shot on a 35mm lens` (most natural all-rounder) or `85mm f/1.8` (portraits) / `24mm` (environmental); `shallow depth of field, f/2.0`. Cite lens *feel* for intent — don't trust exact specs as literal simulation.
+- Film stock (genuinely shifts palette/grain/tonal curve): `Kodak Portra 400 look` (warm skin), `Cinestill 800T with halation` (tungsten night), `Ilford HP5 grain` (B&W).
+- Lighting (humans are most sensitive here): state a **single motivated key + direction + quality** — `soft window light from the upper left, natural falloff, real contact shadows`, `overcast daylight, soft shadows`, `available light only`. Avoid flat "everywhere" illumination with no key.
+
+**Break the centered-hero default:** `off-center, rule of thirds`, `candid/unposed, caught mid-motion`, `foreground occlusion`, `slightly tilted horizon, imperfect amateur framing`, `subject cropped at the frame edge`. Dead-center + eye-level + looking-at-camera reads as staged/generated.
+
+**DROP cargo-cult tokens:** `8K / 4K / ultra-detailed / hyper-detailed / masterpiece / award-winning` add no realism (OpenAI's own guide confirms) and nudge toward the slick render look. `photorealistic` / `ultra-realistic` alone are weak — let the texture/lens/light specifics do the work. Don't mix contradictory looks (`photorealistic cartoon`, `cinematic` + `honest snapshot`).
+
+**In-image text:** put literal copy in quotes or ALL CAPS, specify font style/placement, spell tricky words, and use a higher quality/resolution tier for small/dense text. Nano Banana Pro / GPT Image 2 render text best.
+
+**Vector/logo work** → Recraft (`model_type:vector`).
+
+> Note: GPT Image 2 has no separate negative field — phrase exclusions inline as `avoid plastic/waxy/poreless skin, no airbrushing, no studio polish, no perfectly symmetrical face, no oversaturated HDR, not perfectly centered`.
 
 ## 3. Negative guidance
 
-These models **honor explicit exclusions** stated as positive constraints — `"no text, no watermark, no extra people, no logos"` — far better than vague "avoid …". List the few things that actually ruin the shot.
+These models **honor explicit exclusions** stated as positive constraints — `"no text, no watermark, no extra people, no logos"` — far better than vague "avoid …". List the few things that actually ruin the shot. For photoreal work, add the anti-AI-look guards: `plastic/waxy/poreless skin, airbrushed, over-smoothed, 3D render/CGI/illustration, oversaturated/HDR/over-sharpened, perfectly symmetrical or doll-like face, glassy dead eyes, studio polish, perfectly centered subject, gibberish text, malformed hands`.
 
 ## 4. Aspect ratio / format (always confirm — see DUAL_MODE clarify)
 

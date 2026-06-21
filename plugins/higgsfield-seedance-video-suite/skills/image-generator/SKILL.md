@@ -38,6 +38,8 @@ STEP 2 — EXECUTE (dual mode)
 
 PROMPT MODE → emit the `SEND VERBATIM` block (only the prompt) using the image conventions; put model/aspect/reference notes outside it. Optionally include ready-to-run MCP args.
 
+For PHOTOREAL work, apply the anti-"AI look" playbook (conventions §2): frame it as a real photo captured in the moment, add imperfection/texture (skin pores, film grain, sensor noise, asymmetry), a single motivated key light with direction, real lens/film-stock language (35mm, Portra 400), off-center composition — and DROP cargo-cult tokens (`8K/ultra-detailed/masterpiece`). GPT Image 2 over-polishes by default.
+
 MCP MODE → resolve model+params (`models_explore` recommend→get), convert any reference to a `media_id` (never a URL), preflight with `get_cost:true` and confirm credits, `generate_image`, poll `job_status`, then route the result to `asset-approval-gate`. Echo the exact `params` you used.
 
 Full rules for both modes: `docs/DUAL_MODE.md`.
