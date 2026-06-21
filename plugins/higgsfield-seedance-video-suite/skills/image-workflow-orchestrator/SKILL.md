@@ -24,7 +24,7 @@ FIRST MOVES
 2. Decide EXECUTION MODE early (ask once if unclear): generate now via Higgsfield (MCP MODE) or just produce prompts (PROMPT MODE). Record it.
 3. Detect FULL vs SINGLE-STAGE. For one deliverable, jump to that specialist (often `image-generator`).
 
-Interview ONE question at a time via `creative-brief-grill` when scoping a multi-asset project — each question offers 3 lettered options (a/b/c) with one recommended.
+Interview ONE question at a time via `creative-brief-grill` when scoping a multi-asset project — each question offers 3–5 lettered options (a, b, c, …) with one recommended.
 
 ==================================================
 FULL PIPELINE (stage → specialist → gate)
