@@ -48,6 +48,16 @@ def validate() -> int:
         print_errors(errors)
         return 1
 
+    # Native (Claude Code) marketplace — used for cross-manifest version checks.
+    native_mkt_path = ROOT / ".claude-plugin" / "marketplace.json"
+    native_versions: dict[str, str] = {}
+    if native_mkt_path.exists():
+        for p in load_json(native_mkt_path).get("plugins", []):
+            if isinstance(p, dict) and p.get("name"):
+                native_versions[p["name"]] = p.get("version")
+    else:
+        errors.append("Missing .claude-plugin/marketplace.json")
+
     seen_plugin_ids: set[str] = set()
     seen_skill_names: set[str] = set()
 
@@ -82,6 +92,25 @@ def validate() -> int:
         manifest = load_json(manifest_path)
         if manifest.get("id") != plugin_id:
             errors.append(f"Plugin id mismatch: marketplace={plugin_id}, plugin.json={manifest.get('id')}")
+
+        # Version must be in sync across both manifest systems (custom + Claude Code native).
+        versions = {
+            "marketplace.json": entry.get("version"),
+            "plugin.json": manifest.get("version"),
+        }
+        native_plugin_path = plugin_dir / ".claude-plugin" / "plugin.json"
+        if native_plugin_path.exists():
+            versions[".claude-plugin/plugin.json"] = load_json(native_plugin_path).get("version")
+        else:
+            errors.append(f"Plugin {plugin_id} missing .claude-plugin/plugin.json")
+        if plugin_id in native_versions:
+            versions[".claude-plugin/marketplace.json"] = native_versions[plugin_id]
+        elif native_mkt_path.exists():
+            errors.append(f"Plugin {plugin_id} not listed in .claude-plugin/marketplace.json")
+        present = {k: v for k, v in versions.items() if v is not None}
+        if len(set(present.values())) > 1:
+            detail = ", ".join(f"{k}={v}" for k, v in present.items())
+            errors.append(f"Plugin {plugin_id} version mismatch across manifests: {detail}")
 
         skills = manifest.get("skills", [])
         if not isinstance(skills, list) or not skills:

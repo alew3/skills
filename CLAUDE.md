@@ -29,6 +29,8 @@ This repo carries **two parallel manifest formats** — keep both in sync when a
 
 Skills live at `plugins/<plugin-id>/skills/<skill-id>/SKILL.md` and are auto-discovered by Claude Code once the plugin is installed — this path serves both systems.
 
+**Keep the plugin `version` in sync across all four places** when you change a plugin: the custom `marketplace.json` entry, the custom `plugin.json`, the native `.claude-plugin/plugin.json`, and the native `.claude-plugin/marketplace.json` entry. `validate_marketplace.py` now fails on any mismatch. Bump the version (semver) whenever a plugin's behavior or content changes.
+
 ## Architecture
 
 Three nesting levels: **Marketplace → Plugin → Skill**.
