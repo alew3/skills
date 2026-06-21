@@ -1,0 +1,67 @@
+# Model Prompting Playbooks
+
+Per-model prompt strategy for the three workhorse models, plus when to pick which. Skills reference this for model-specific phrasing; for general structure see `IMAGE_PROMPT_CONVENTIONS.md` / `VIDEO_PROMPT_CONVENTIONS.md`, and for params/IDs see `HIGGSFIELD_MCP_REFERENCE.md`.
+
+> Model capability specifics below are 2026 and partly post-cutoff (web-sourced) — confirm exact params/enums via `models_explore(action:"get")` before generating.
+
+---
+
+## Model selection (the rule of thumb)
+
+| Need | Use |
+|---|---|
+| Image with **lots of / critical text**, typography, UI mockups, infographics, precise instruction-edits | **GPT Image 2** (or **Nano Banana Pro** for 4K/multilingual typography) |
+| **Creative / illustrative / photoreal** hero images, fast iteration, image editing, multi-reference compositing (text minimal) | **Nano Banana 2** |
+| Max factual fidelity + **heavy/precise in-image text** at 4K | **Nano Banana Pro** |
+| Realistic people / UGC / fashion portraits, character via Soul | **Soul 2** |
+| **Reference-driven identity/product video** with native synced audio | **Seedance 2** (multi-shot story → Kling 3; photoreal hero shot → Veo) |
+
+Default split: **text-heavy → GPT Image 2; creative → Nano Banana 2.**
+
+---
+
+## GPT Image 2 — image (preferred for text-heavy)
+
+`gpt_image_2`. Runs a brief reasoning pass before drawing, so multi-element layouts, UI, and text-heavy scenes usually land first try.
+
+- **Structure:** background/scene → subject → key details → constraints, plus the **intended use** ("ad", "UI mock", "infographic") to set polish. Natural language; paragraph / instruction / tags all work — clarity over cleverness; 1–3 sentences, line breaks for complex scenes.
+- **Standout strength — TEXT/typography/diagrams** (why it's preferred for text-heavy): put literal copy in **quotes or ALL CAPS**, **spell hard words letter-by-letter**, specify font style/size/color/placement, and use **`quality: medium`/`high`** for small or dense text.
+- **Editing & multi-reference:** up to **16 reference images**; address inputs **by index + role** ("Image 1: product; Image 2: style reference") and state the interaction. Edit pattern: "Change ONLY X" + "keep everything else the same", and **repeat the preserve-list every iteration**.
+- **Consistency (NO seed):** reuse a **character bible** (6–10 fixed traits, verbatim) + pass an approved **baseline image as a reference**; combine both.
+- **Negatives:** honors explicit exclusions ("no watermark, no text, no logos") — not vague "avoid".
+- **Params:** sizes with max edge ≤3840, both edges ÷16, ratio ≤3:1 (`1024x1024`, `1536x1024`, `1024x1536`, `3840x2160`, `auto`); `quality: low|medium|high|auto`; **no transparency**. (Higgsfield exposes `resolution` 1k/2k/4k + `quality` low/med/high for this model.)
+
+## Nano Banana 2 — image (preferred for creative)
+
+`nano_banana_2` (Google Gemini-family Flash image; sibling of `nano_banana_pro`).
+
+- **Structure:** write **narrative scene descriptions, not keyword tags** — "direct the scene." Conversational and literal. Google's five pillars: **Subject · Composition · Action · Location/Setting · Style**; practical order `[Subject] + [Action] + [Location] + [Composition] + [Style]`. More detail = closer fidelity.
+- **Best at:** creative/illustrative **and** photoreal; **fast iteration**; **image-to-image editing & semantic masking**; **multi-image fusion** (blends up to ~14 refs; tracks up to ~5 characters / 14 objects); native 4K; web-grounded world knowledge.
+- **Text:** legible and multilingual (can translate text in-image), but small/critical text can fail → **route heavy text to GPT Image 2 / Nano Banana Pro.**
+- **Direct like a creative director:** name camera body, lens (f/1.8 shallow DoF, macro), lighting ("three-point softbox", "chiaroscuro", "golden-hour backlight"), film stock/grain, and **specific materials** ("navy blue tweed", not "suit").
+- **Negatives:** use **positive framing** — "empty street", NOT "no cars" (exclusion phrasing is unreliable here).
+- **Editing:** image + describe the change; for region edits be explicit about **what to keep identical** ("replace the sky…, keep the subject, pose, clothing exactly the same"). Multi-ref formula: `[reference images] + [relationship instruction] + [new scenario]`.
+- **Consistency (no seed):** establish the character with specifics in prompt #1 and **reuse identical descriptors**; for multiple subjects **upload refs and give each a distinct name** to avoid identity bleed; iterate **conversationally** (follow-ups), and if it drifts after many edits, **start a fresh conversation** with a full description.
+- **Params:** state aspect ratio in-prompt; resolution `512px / 1k / 2k / 4k`.
+
+## Seedance 2 — video (reference-driven identity + native audio)
+
+`seedance_2_0`. See `VIDEO_PROMPT_CONVENTIONS.md` for the full shared rules.
+
+- **Formula (60–100 words, scene-first → camera-last):** `[Subject + appearance] + [Action] + [Environment + lighting] + [Camera move + shot size] + [Style] + [Constraints]`.
+- **Lighting is the biggest quality lever** — add it first when a prompt is weak.
+- **ONE camera move, ONE shot size** per prompt; name the shot size; say what the camera is **not** doing ("no cuts, no zoom") or it defaults to cutting.
+- **Separate subject motion from camera motion** ("The dancer spins. Camera holds fixed framing.").
+- **Rhythm words, not specs** (`slow, gentle, smooth, steady`); **avoid bare `fast`** (top quality-killer).
+- **Multi-shot:** declare **shots + total duration + aspect ratio at the top**, then numbered `Shot 1 / Shot 2…`.
+- **Image-to-video:** identity lives in the start frame — restate only persistent anchors and describe **only what changes**; add "keep original composition and lighting, avoid identity drift".
+- **Specs:** duration steps **4/5/6/8/10/12/15s** (intermediate rejected, clamps); aspect `16:9, 9:16, 4:3, 3:4, 21:9, 1:1`; up to 1080p–2K @ 24fps; **native synchronized audio** (toggleable); inputs up to 9 images / 3 videos / 3 audio.
+- **When:** reference-driven identity/product video + native audio in one pass. Multi-shot narrative → **Kling 3**; photoreal hero/character shot → **Veo**.
+
+---
+
+## Sources (web, partly post-cutoff)
+
+- GPT Image 2: developers.openai.com image-gen prompting guide & API docs.
+- Nano Banana 2: blog.google/innovation-and-ai nano-banana-2; deepmind.google gemini-image prompt-guide; cloud.google.com ultimate prompting guide for Nano Banana.
+- Seedance 2: BytePlus ModelArk docs; higgsfield.ai seedance prompting guide; apiyi.com Seedance 2.0 guide. (Seedance 2.0 / NB2 post-date Jan 2026 — treat specifics as unverified vendor claims; confirm via `models_explore`.)

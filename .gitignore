@@ -1,0 +1,19 @@
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Build artifacts
+*.zip
+/dist/
+/build/
+
+# Local scratch
+/tmp/
+*.local.json

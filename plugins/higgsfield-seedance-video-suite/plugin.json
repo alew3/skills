@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.1.0",
+  "id": "higgsfield-seedance-video-suite",
+  "name": "Higgsfield + Seedance Video Suite",
+  "version": "0.2.0",
+  "description": "Modular AI image + video workflow: brief, image/character/character-sheet/environment/style/storyboard generation, Seedance 2 / Higgsfield video prompts, audio, passthrough validation, and handoff. Every skill is dual-mode (drives the Higgsfield MCP or emits paste-ready prompts), clarifies missing parameters first, and supports multiple characters and environments. Two orchestrators: image and video.",
+  "author": "Alessandro Cauduro",
+  "license": "MIT",
+  "category": "video-generation",
+  "tags": [
+    "higgsfield",
+    "seedance-2",
+    "video-generation",
+    "image-generation",
+    "character-design",
+    "character-sheet",
+    "environment-sheet",
+    "storyboard",
+    "audio-generation",
+    "mcp-driven",
+    "dual-mode",
+    "passthrough",
+    "workflow-orchestration"
+  ],
+  "entry_skill": "video-workflow-orchestrator",
+  "skills": [
+    { "name": "video-workflow-orchestrator", "path": "skills/video-workflow-orchestrator/SKILL.md", "responsibility": "Guided scratch-to-finished-video driver; routes specialists, manages gates, selects MCP vs prompt mode; supports multiple characters and environments.", "type": "skill", "can_be_called_independently": true },
+    { "name": "image-workflow-orchestrator", "path": "skills/image-workflow-orchestrator/SKILL.md", "responsibility": "Guided idea-to-image-set driver; style board, characters, sheets, environments, hero images; MCP vs prompt mode.", "type": "skill", "can_be_called_independently": true },
+    { "name": "creative-brief-grill", "path": "skills/creative-brief-grill/SKILL.md", "responsibility": "One-question-at-a-time interview producing an approved image or video brief (cast, environments, format, execution mode).", "type": "skill", "can_be_called_independently": true },
+    { "name": "image-generator", "path": "skills/image-generator/SKILL.md", "responsibility": "Generic single/freeform image: emit a prompt and/or call generate_image. Clarifies format and style first.", "type": "skill", "can_be_called_independently": true },
+    { "name": "character-designer", "path": "skills/character-designer/SKILL.md", "responsibility": "Define one character's canonical look + identity block + reuse strategy (Soul vs Element); dual-mode.", "type": "skill", "can_be_called_independently": true },
+    { "name": "character-sheet-builder", "path": "skills/character-sheet-builder/SKILL.md", "responsibility": "Multi-view/expression/pose sheet locking identity via master-then-derive; dual-mode.", "type": "skill", "can_be_called_independently": true },
+    { "name": "environment-sheet-builder", "path": "skills/environment-sheet-builder/SKILL.md", "responsibility": "Coherent location reference board (empty master + bible + angles + time-of-day); dual-mode.", "type": "skill", "can_be_called_independently": true },
+    { "name": "style-board-builder", "path": "skills/style-board-builder/SKILL.md", "responsibility": "Style/mood/palette board defining the look as continuity constraints; dual-mode.", "type": "skill", "can_be_called_independently": true },
+    { "name": "storyboard-builder", "path": "skills/storyboard-builder/SKILL.md", "responsibility": "Shot list + storyboard frames binding cast/locations per shot; dual-mode.", "type": "skill", "can_be_called_independently": true },
+    { "name": "asset-approval-gate", "path": "skills/asset-approval-gate/SKILL.md", "responsibility": "Approve/revise/reject for prompts AND generated media; owns the named multi-asset map.", "type": "skill", "can_be_called_independently": true },
+    { "name": "video-prompt-architect", "path": "skills/video-prompt-architect/SKILL.md", "responsibility": "Final structured video prompt (Seedance/Kling/Veo/Cinema via Higgsfield); t2v/i2v/multi-shot; emit and/or call generate_video.", "type": "skill", "can_be_called_independently": true },
+    { "name": "audio-generator", "path": "skills/audio-generator/SKILL.md", "responsibility": "Speech/voiceover: emit a script/voice spec and/or call generate_audio (TTS only).", "type": "skill", "can_be_called_independently": true },
+    { "name": "passthrough-guardian", "path": "skills/passthrough-guardian/SKILL.md", "responsibility": "Validate SEND VERBATIM cleanliness and asset-map consistency (and the prompt string before an MCP call).", "type": "skill", "can_be_called_independently": true },
+    { "name": "higgsfield-package-adapter", "path": "skills/higgsfield-package-adapter/SKILL.md", "responsibility": "Final handoff package; in MCP mode drives upload + generation + polling.", "type": "skill", "can_be_called_independently": true }
+  ],
+  "templates": [
+    { "name": "video-brief-template", "path": "templates/video-brief-template.md" },
+    { "name": "video-prompt-template", "path": "templates/video-prompt-template.md" },
+    { "name": "asset-map-template", "path": "templates/asset-map-template.md" },
+    { "name": "character-sheet-template", "path": "templates/character-sheet-template.md" },
+    { "name": "environment-sheet-template", "path": "templates/environment-sheet-template.md" },
+    { "name": "style-board-template", "path": "templates/style-board-template.md" },
+    { "name": "storyboard-template", "path": "templates/storyboard-template.md" },
+    { "name": "audio-prompt-template", "path": "templates/audio-prompt-template.md" },
+    { "name": "mcp-call-template", "path": "templates/mcp-call-template.md" },
+    { "name": "workflow-state-template", "path": "templates/workflow-state-template.json" }
+  ],
+  "examples": [
+    { "name": "video-workflow-mcp-example", "path": "examples/video-workflow-mcp-example.md" },
+    { "name": "video-prompt-prompt-mode-example", "path": "examples/video-prompt-prompt-mode-example.md" },
+    { "name": "standalone-character-and-sheet-example", "path": "examples/standalone-character-and-sheet-example.md" }
+  ],
+  "docs": [
+    { "name": "getting-started", "path": "docs/GETTING_STARTED.md" },
+    { "name": "dual-mode", "path": "docs/DUAL_MODE.md" },
+    { "name": "image-prompt-conventions", "path": "docs/IMAGE_PROMPT_CONVENTIONS.md" },
+    { "name": "video-prompt-conventions", "path": "docs/VIDEO_PROMPT_CONVENTIONS.md" },
+    { "name": "model-prompting", "path": "docs/MODEL_PROMPTING.md" },
+    { "name": "higgsfield-mcp-reference", "path": "docs/HIGGSFIELD_MCP_REFERENCE.md" }
+  ],
+  "compatibility": {
+    "format": "markdown-skills",
+    "requires_runtime": false,
+    "external_services": [
+      "Higgsfield MCP",
+      "Seedance 2",
+      "Kling 3",
+      "Veo 3.1",
+      "OpenAI GPT Image 2",
+      "Nano Banana Pro"
+    ]
+  }
+}

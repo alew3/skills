@@ -1,0 +1,76 @@
+{
+  "project": {
+    "title": "",
+    "logline": "",
+    "type": "video",
+    "format": {
+      "aspect_ratio": "16:9",
+      "duration_s": null,
+      "platform": "",
+      "model_target": ""
+    }
+  },
+  "execution_mode": "prompt",
+  "globals": {
+    "palette": "",
+    "grade": "",
+    "lens": "",
+    "time_of_day": "",
+    "style": ""
+  },
+  "characters": {
+    "_example_id": {
+      "bible": "",
+      "identity_block": "",
+      "reuse_strategy": "element",
+      "soul_id": null,
+      "element_id": null,
+      "sheet": [],
+      "master": null,
+      "status": "planned"
+    }
+  },
+  "environments": {
+    "_example_id": {
+      "bible": "",
+      "master": null,
+      "sheet": [],
+      "status": "planned"
+    }
+  },
+  "style_frames": [],
+  "shots": [
+    {
+      "shot_id": "S01-01",
+      "scene": 1,
+      "duration_s": 5,
+      "shot_size": "MS",
+      "camera_angle": "eye-level",
+      "camera_move": "static",
+      "subjects": [],
+      "action": "",
+      "location": "",
+      "dialogue_sfx": "",
+      "lighting": "",
+      "refs_used": [],
+      "keyframe": null,
+      "continuity_notes": "",
+      "purpose": "",
+      "status": "planned"
+    }
+  ],
+  "audio": [],
+  "stage_status": {
+    "brief": "not_started",
+    "style_frames": "not_started",
+    "character_bibles": "not_started",
+    "character_sheets": "not_started",
+    "environment_sheets": "not_started",
+    "shot_list": "not_started",
+    "storyboard": "not_started",
+    "video_prompts": "not_started",
+    "audio": "not_started",
+    "assembly": "not_started"
+  },
+  "gates_log": []
+}

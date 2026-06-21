@@ -1,0 +1,9 @@
+{
+  "name": "higgsfield-seedance-video-suite",
+  "description": "Full AI video + image workflow: briefing, image/character/environment generation, character & environment sheets, storyboard, Seedance 2 / Higgsfield video prompts, passthrough validation, and final handoff. Drives the Higgsfield MCP or emits paste-ready prompts.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Alessandro Cauduro",
+    "email": "alessandro@cauduro.ai"
+  }
+}

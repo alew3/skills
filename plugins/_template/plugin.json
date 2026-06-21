@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1.0",
+  "id": "{{PLUGIN_ID}}",
+  "name": "{{PLUGIN_NAME}}",
+  "version": "0.1.0",
+  "description": "{{PLUGIN_DESCRIPTION}}",
+  "author": "{{AUTHOR}}",
+  "license": "MIT",
+  "category": "{{PLUGIN_CATEGORY}}",
+  "tags": [],
+  "entry_skill": "template-orchestrator",
+  "skills": [
+    {
+      "name": "template-orchestrator",
+      "path": "skills/template-orchestrator/SKILL.md",
+      "responsibility": "Coordinates the plugin workflow.",
+      "can_be_called_independently": true
+    }
+  ],
+  "templates": [],
+  "examples": []
+}
